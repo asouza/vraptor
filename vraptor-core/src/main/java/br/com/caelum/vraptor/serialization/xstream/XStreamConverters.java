@@ -17,6 +17,9 @@ package br.com.caelum.vraptor.serialization.xstream;
 
 import java.util.List;
 
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +41,8 @@ import com.thoughtworks.xstream.converters.SingleValueConverter;
 @Component
 public class XStreamConverters {
 
-	private final List<Converter> converters;
-	private final List<SingleValueConverter> singleValueConverters;
+	private List<Converter> converters;
+	private List<SingleValueConverter> singleValueConverters;
 	
 	private static final Logger logger = LoggerFactory.getLogger(XStreamConverters.class);
 
@@ -60,6 +63,17 @@ public class XStreamConverters {
 		this.converters = Objects.firstNonNull(converters, Lists.<Converter>newArrayList());
 		this.singleValueConverters = Objects.firstNonNull(singleValueConverters, Lists.<SingleValueConverter>newArrayList());
 	}
+	
+	@Inject
+	public XStreamConverters(Instance<Converter> possibleConverters, Instance<SingleValueConverter> possibleSingleValueConverters)
+	{
+		this(Lists.newArrayList(possibleConverters),Lists.newArrayList(possibleSingleValueConverters));
+	}
+    
+    @Deprecated
+    public XStreamConverters()
+    {
+    }
 	
 	/**
 	 * Method used to register all the XStream converters scanned to a XStream instance

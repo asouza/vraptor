@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
 import java.util.EnumSet;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.Result;
@@ -44,12 +45,13 @@ import br.com.caelum.vraptor.resource.HttpMethod;
 @Component
 public class DefaultStatus implements Status {
 
-	private final HttpServletResponse response;
-	private final Result result;
-	private final Configuration config;
-	private final Router router;
-	private final Proxifier proxifier;
+	private HttpServletResponse response;
+	private Result result;
+	private Configuration config;
+	private Router router;
+	private Proxifier proxifier;
 
+	@Inject
 	public DefaultStatus(HttpServletResponse response, Result result, Configuration config,
 			Proxifier proxifier, Router router) {
 		this.response = response;
@@ -57,6 +59,10 @@ public class DefaultStatus implements Status {
 		this.config = config;
 		this.proxifier = proxifier;
 		this.router = router;
+	}
+	
+	@Deprecated
+	public DefaultStatus() {
 	}
 
 	public void notFound() {

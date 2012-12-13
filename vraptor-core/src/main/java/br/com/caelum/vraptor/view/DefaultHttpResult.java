@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.common.io.ByteStreams;
@@ -35,12 +36,17 @@ import com.google.common.io.CharStreams;
  */
 public class DefaultHttpResult implements HttpResult {
 
-	private final HttpServletResponse response;
-	private final Status status;
+	private HttpServletResponse response;
+	private Status status;
 
+	@Inject
 	public DefaultHttpResult(HttpServletResponse response, Status status) {
 		this.response = response;
 		this.status = status;
+	}
+	
+	@Deprecated
+	public DefaultHttpResult() {
 	}
 
 	public HttpResult addDateHeader(String name, long date) {

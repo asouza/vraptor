@@ -19,6 +19,8 @@ package br.com.caelum.vraptor;
 
 import java.io.IOException;
 
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -63,6 +65,7 @@ public class VRaptor implements Filter {
 		provider = null;
 		servletContext = null;
 	}
+
 
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException,
 			ServletException {

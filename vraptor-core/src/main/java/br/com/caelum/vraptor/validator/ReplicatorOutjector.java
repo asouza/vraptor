@@ -15,6 +15,8 @@
  */
 package br.com.caelum.vraptor.validator;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.http.ParameterNameProvider;
@@ -26,15 +28,20 @@ import br.com.caelum.vraptor.http.ParameterNameProvider;
  */
 public class ReplicatorOutjector implements Outjector {
 
-    private final Result result;
-	private final MethodInfo method;
-	private final ParameterNameProvider provider;
+    private Result result;
+	private MethodInfo method;
+	private ParameterNameProvider provider;
 
+	@Inject
 	public ReplicatorOutjector(Result result, MethodInfo method, ParameterNameProvider provider) {
 		this.result = result;
 		this.method = method;
 		this.provider = provider;
     }
+	
+	@Deprecated
+	public ReplicatorOutjector() {
+	}
 
     public void outjectRequestMap() {
           String[] names = provider.parameterNamesFor(method.getResourceMethod().getMethod());

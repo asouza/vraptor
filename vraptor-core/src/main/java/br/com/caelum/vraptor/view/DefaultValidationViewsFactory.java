@@ -19,6 +19,8 @@ package br.com.caelum.vraptor.view;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.View;
@@ -49,12 +51,17 @@ import br.com.caelum.vraptor.validator.ValidationException;
  */
 public class DefaultValidationViewsFactory implements ValidationViewsFactory {
 
-	private final Result result;
-	private final Proxifier proxifier;
+	private Result result;
+	private Proxifier proxifier;
 
+	@Inject
 	public DefaultValidationViewsFactory(Result result, Proxifier proxifier) {
 		this.result = result;
 		this.proxifier = proxifier;
+	}
+	
+	@Deprecated
+	public DefaultValidationViewsFactory() {
 	}
 
 	public <T extends View> T instanceFor(final Class<T> view, final List<Message> errors) {

@@ -23,6 +23,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.enterprise.context.RequestScoped;
+
 import br.com.caelum.vraptor.ioc.Stereotype;
 
 /**
@@ -35,5 +37,6 @@ import br.com.caelum.vraptor.ioc.Stereotype;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Stereotype
+@RequestScoped
 public @interface Resource {
 }

@@ -20,6 +20,11 @@ import static br.com.caelum.vraptor.view.Results.status;
 import java.util.Collections;
 import java.util.List;
 
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
+import com.google.common.collect.Lists;
+
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.http.FormatResolver;
 import br.com.caelum.vraptor.restfulie.RestHeadersHandler;
@@ -34,16 +39,25 @@ import br.com.caelum.vraptor.restfulie.hypermedia.HypermediaResource;
  */
 public class DefaultRepresentationResult implements RepresentationResult {
 
-	private final FormatResolver formatResolver;
+	private FormatResolver formatResolver;
 	private List<Serialization> serializations;
-	private final Result result;
-	private final RestHeadersHandler headersHandler;
+	private Result result;
+	private RestHeadersHandler headersHandler;
 
 	public DefaultRepresentationResult(FormatResolver formatResolver, Result result, List<Serialization> serializations, RestHeadersHandler headersHandler) {
 		this.formatResolver = formatResolver;
 		this.result = result;
 		this.serializations = serializations;
 		this.headersHandler = headersHandler;
+	}
+	
+	@Inject
+	public DefaultRepresentationResult(FormatResolver formatResolver, Result result, Instance<Serialization> serializations, RestHeadersHandler headersHandler) {
+		this(formatResolver,result,Lists.newArrayList(serializations.iterator()),headersHandler);
+	}
+	
+	@Deprecated
+	public DefaultRepresentationResult() {		
 	}
 
 	public <T> Serializer from(T object) {

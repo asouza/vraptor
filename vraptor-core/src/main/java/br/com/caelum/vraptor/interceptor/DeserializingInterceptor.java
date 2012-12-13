@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -45,14 +46,15 @@ import br.com.caelum.vraptor.view.Status;
 @Intercepts(after=ParametersInstantiatorInterceptor.class, before=ExecuteMethodInterceptor.class)
 @Lazy
 public class DeserializingInterceptor implements Interceptor {
-	private final HttpServletRequest request;
-	private final Deserializers deserializers;
-	private final MethodInfo methodInfo;
-	private final Container container;
-	private final Status status;
+	private HttpServletRequest request;
+	private Deserializers deserializers;
+	private MethodInfo methodInfo;
+	private Container container;
+	private Status status;
 
 	private static final Logger logger = LoggerFactory.getLogger(DeserializingInterceptor.class);
 
+	@Inject
 	public DeserializingInterceptor(HttpServletRequest servletRequest, Deserializers deserializers,
 			MethodInfo methodInfo, Container container, Status status) {
 		this.request = servletRequest;
@@ -60,6 +62,10 @@ public class DeserializingInterceptor implements Interceptor {
 		this.methodInfo = methodInfo;
 		this.container = container;
 		this.status = status;
+	}
+	
+	@Deprecated
+	public DeserializingInterceptor() {
 	}
 
 	public boolean accepts(ResourceMethod method) {

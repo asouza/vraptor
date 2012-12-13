@@ -22,6 +22,8 @@ import static org.joda.time.format.DateTimeFormat.shortTime;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
@@ -29,6 +31,7 @@ import br.com.caelum.vraptor.Convert;
 import br.com.caelum.vraptor.Converter;
 import br.com.caelum.vraptor.converter.ConversionError;
 import br.com.caelum.vraptor.core.Localization;
+import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 
 /**
  * VRaptor converter for {@link LocalTime}. {@link LocalTime} is part of Joda Time library.
@@ -38,10 +41,15 @@ import br.com.caelum.vraptor.core.Localization;
 @Convert(LocalTime.class)
 public class LocalTimeConverter implements Converter<LocalTime> {
 	
-    private final Localization localization;
+    private Localization localization;
 
+    @Inject
 	public LocalTimeConverter(Localization localization) {
         this.localization = localization;
+    }
+    
+    @Deprecated
+    public LocalTimeConverter() {
     }
 
     public LocalTime convert(String value, Class<? extends LocalTime> type, ResourceBundle bundle) {

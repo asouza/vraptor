@@ -17,6 +17,8 @@
 
 package br.com.caelum.vraptor.interceptor;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.core.InterceptorStack;
@@ -33,10 +35,15 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 @Intercepts(after=ResourceLookupInterceptor.class)
 public class InstantiateInterceptor implements Interceptor {
 
-	private final Container container;
+	private Container container;
 
+	@Inject
 	public InstantiateInterceptor(Container container) {
 		this.container = container;
+	}
+	
+	@Deprecated
+	public InstantiateInterceptor() {
 	}
 
 	public void intercept(InterceptorStack invocation, ResourceMethod method,

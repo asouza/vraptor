@@ -17,6 +17,7 @@ package br.com.caelum.vraptor.serialization.xstream;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.interceptor.TypeNameExtractor;
@@ -35,17 +36,23 @@ import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
 @Component
 public class XStreamJSONSerialization implements JSONSerialization {
 
-    protected final HttpServletResponse response;
-    protected final TypeNameExtractor extractor;
-    protected final ProxyInitializer initializer;
-    protected final XStreamBuilder builder;
+    protected HttpServletResponse response;
+    protected TypeNameExtractor extractor;
+    protected ProxyInitializer initializer;
+    protected XStreamBuilder builder;
 
+    @Inject
     public XStreamJSONSerialization(HttpServletResponse response, TypeNameExtractor extractor, ProxyInitializer initializer, XStreamBuilder builder) {
         this.response = response;
         this.extractor = extractor;
         this.initializer = initializer;
         this.builder = builder;
     }
+    
+    
+    @Deprecated
+    public XStreamJSONSerialization() {
+    }    
 
     public boolean accepts(String format) {
         return "json".equals(format);

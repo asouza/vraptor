@@ -15,6 +15,7 @@
  */
 package br.com.caelum.vraptor.view;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import br.com.caelum.vraptor.resource.ResourceMethod;
@@ -26,12 +27,17 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
  */
 public class SessionFlashScope implements FlashScope {
 
-	private final HttpSession session;
+	private HttpSession session;
 
 	private static final String KEY_START = "vraptor_flash_parameters_for_";
 
+	@Inject
 	public SessionFlashScope(HttpSession session) {
 		this.session = session;
+	}
+	
+	@Deprecated
+	public SessionFlashScope() {
 	}
 
 	public Object[] consumeParameters(ResourceMethod method) {

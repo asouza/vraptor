@@ -17,8 +17,11 @@ package br.com.caelum.vraptor.interceptor;
 
 import java.util.List;
 
+import javax.enterprise.inject.Default;
+
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
+import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 
 /**
  * An interceptor registry that sorts interceptors based on their before and after conditions
@@ -29,6 +32,7 @@ import br.com.caelum.vraptor.ioc.ApplicationScoped;
  *
  */
 @ApplicationScoped
+@Default
 public class TopologicalSortedInterceptorRegistry implements InterceptorRegistry {
 
 	private Graph<Class<? extends Interceptor>> set = new Graph<Class<? extends Interceptor>>();

@@ -17,10 +17,14 @@ package br.com.caelum.vraptor.core;
 
 import java.util.concurrent.ConcurrentMap;
 
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.Lazy;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Container;
+import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 
 import com.google.common.collect.MapMaker;
 
@@ -32,6 +36,7 @@ import com.google.common.collect.MapMaker;
  *
  */
 @ApplicationScoped
+@Default
 public class DefaultInterceptorHandlerFactory implements InterceptorHandlerFactory {
 
 	private Container container;
@@ -39,8 +44,13 @@ public class DefaultInterceptorHandlerFactory implements InterceptorHandlerFacto
 	private ConcurrentMap<Class<? extends Interceptor>, InterceptorHandler> cachedHandlers =
 		new MapMaker().makeMap();
 
+	@Inject
 	public DefaultInterceptorHandlerFactory(Container container) {
 		this.container = container;
+	}
+	
+	@Deprecated
+	public DefaultInterceptorHandlerFactory() {
 	}
 
 	public InterceptorHandler handlerFor(Class<? extends Interceptor> type) {

@@ -19,6 +19,9 @@ package br.com.caelum.vraptor.core;
 
 import java.util.LinkedList;
 
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,12 +33,14 @@ import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Container;
 
 @ApplicationScoped
-public final class DefaultConverters implements Converters {
+public class DefaultConverters implements Converters {
 
-    private final LinkedList<Class<? extends Converter<?>>> classes;
-    private final Logger logger = LoggerFactory.getLogger(DefaultConverters.class);
-	private final Container container;
+    private  LinkedList<Class<? extends Converter<?>>> classes;
+    private  Logger logger = LoggerFactory.getLogger(DefaultConverters.class);
+	private  Container container;
 
+	
+	@Inject
     public DefaultConverters(Container container) {
         this.container = container;
 		this.classes = new LinkedList<Class<? extends Converter<?>>>();
@@ -44,6 +49,10 @@ public final class DefaultConverters implements Converters {
             logger.debug("bundled converter to be registered: {}", converterType);
             register(converterType);
         }
+    }
+    
+    public DefaultConverters(){
+    	
     }
 
     public void register(Class<? extends Converter<?>> converterClass) {

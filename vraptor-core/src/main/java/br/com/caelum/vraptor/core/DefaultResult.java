@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.vraptor.Result;
@@ -37,13 +38,14 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 @RequestScoped
 public class DefaultResult extends AbstractResult {
 
-    private final HttpServletRequest request;
-    private final Container container;
-    private final Map<String, Object> includedAttributes;
+    private HttpServletRequest request;
+    private Container container;
+    private Map<String, Object> includedAttributes;
     private boolean responseCommitted = false;
-    private final ExceptionMapper exceptions;
-	private final TypeNameExtractor extractor;
+    private ExceptionMapper exceptions;
+	private TypeNameExtractor extractor;
 
+	@Inject
     public DefaultResult(HttpServletRequest request, Container container, ExceptionMapper exceptions, TypeNameExtractor extractor) {
         this.request = request;
         this.container = container;
@@ -51,6 +53,10 @@ public class DefaultResult extends AbstractResult {
         this.includedAttributes = new HashMap<String, Object>();
         this.exceptions = exceptions;
     }
+	
+	@Deprecated
+	public DefaultResult() {
+	}
 
     public <T extends View> T use(Class<T> view) {
         this.responseCommitted = true;

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.MessageInterpolator;
 import javax.validation.Validator;
@@ -46,16 +47,21 @@ public class DefaultBeanValidator
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultBeanValidator.class);
 
-    private final Localization localization;
+    private Localization localization;
 
-    private final Validator validator;
+    private Validator validator;
 
-    private final MessageInterpolator interpolator;
+    private MessageInterpolator interpolator;
 
+    @Inject
     public DefaultBeanValidator(Localization localization, Validator validator, MessageInterpolator interpolator) {
         this.localization = localization;
         this.validator = validator;
         this.interpolator = interpolator;
+    }
+    
+    @Deprecated
+    public DefaultBeanValidator() {
     }
 
     public List<Message> validate(Object bean) {

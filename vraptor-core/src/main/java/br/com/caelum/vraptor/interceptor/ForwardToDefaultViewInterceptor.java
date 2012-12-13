@@ -17,6 +17,8 @@
 
 package br.com.caelum.vraptor.interceptor;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,12 +37,17 @@ import br.com.caelum.vraptor.view.Results;
  */
 @Intercepts(after=ExecuteMethodInterceptor.class, before={})
 public class ForwardToDefaultViewInterceptor implements Interceptor {
-    private final Result result;
+    private Result result;
 
     private static final Logger logger = LoggerFactory.getLogger(ForwardToDefaultViewInterceptor.class);
 
+    @Inject
     public ForwardToDefaultViewInterceptor(Result result) {
         this.result = result;
+    }
+    
+    @Deprecated
+    public ForwardToDefaultViewInterceptor() {
     }
 
     public boolean accepts(ResourceMethod method) {

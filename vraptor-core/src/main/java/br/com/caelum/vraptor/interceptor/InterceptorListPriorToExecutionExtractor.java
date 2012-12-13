@@ -17,6 +17,8 @@
 
 package br.com.caelum.vraptor.interceptor;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,12 +43,18 @@ public class InterceptorListPriorToExecutionExtractor implements Interceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(InterceptorListPriorToExecutionExtractor.class);
 
-    private final InterceptorRegistry registry;
+    private InterceptorRegistry registry;
 
+    @Inject
     public InterceptorListPriorToExecutionExtractor(InterceptorRegistry registry) {
         this.registry = registry;
         logger.warn("This class is deprecated. If you extend a request execution, consider using @Intercepts(after=..., before=...) instead.");
     }
+    
+    @Deprecated
+    public InterceptorListPriorToExecutionExtractor() {
+		// TODO Auto-generated constructor stub
+	}
 
     public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
     	for (Class<? extends Interceptor> type : Lists.reverse(registry.all())) {

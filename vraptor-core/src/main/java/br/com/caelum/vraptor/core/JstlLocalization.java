@@ -21,6 +21,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.jsp.jstl.core.Config;
 import javax.servlet.jsp.jstl.fmt.LocalizationContext;
@@ -29,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.vraptor.ioc.RequestScoped;
+import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 import br.com.caelum.vraptor.util.EmptyBundle;
 
 import com.google.common.base.Strings;
@@ -40,6 +43,7 @@ import com.google.common.base.Strings;
  * @author Otávio Scherer Garcia
  */
 @RequestScoped
+@Default
 public class JstlLocalization
     implements Localization {
 
@@ -47,11 +51,16 @@ public class JstlLocalization
 
     private static final String DEFAULT_BUNDLE_NAME = "messages";
 
-    private final RequestInfo request;
+    private RequestInfo request;
     private ResourceBundle bundle;
 
+    @Inject
     public JstlLocalization(RequestInfo request) {
         this.request = request;
+    }
+
+    @Deprecated
+    public JstlLocalization() {
     }
 
     public ResourceBundle getBundle() {

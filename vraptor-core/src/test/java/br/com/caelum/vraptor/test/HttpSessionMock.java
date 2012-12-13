@@ -31,8 +31,8 @@ import javax.servlet.http.HttpSessionContext;
  */
 @SuppressWarnings({"deprecation", "unchecked"})
 public class HttpSessionMock implements HttpSession {
-    private final ServletContext context;
-    private final String id;
+    private ServletContext context;
+    private String id;
 
     private long creationTime;
     private long lastAccessedTime;
@@ -43,6 +43,10 @@ public class HttpSessionMock implements HttpSession {
     public HttpSessionMock(ServletContext context, String id) {
         this.context = context;
         this.id = id;
+    }
+
+    @Deprecated
+    public HttpSessionMock() {
     }
 
     public long getCreationTime() {

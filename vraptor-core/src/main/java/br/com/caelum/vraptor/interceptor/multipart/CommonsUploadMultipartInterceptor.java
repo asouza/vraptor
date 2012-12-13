@@ -22,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
 
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
@@ -60,19 +62,21 @@ import com.google.common.collect.Multiset;
  */
 @Intercepts(before = ResourceLookupInterceptor.class, after = {})
 @RequestScoped
+@Default
 public class CommonsUploadMultipartInterceptor
     implements MultipartInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(CommonsUploadMultipartInterceptor.class);
 
-    private final HttpServletRequest request;
-    private final MutableRequest parameters;
-    private final MultipartConfig config;
-    private final Validator validator;
-    private final ServletFileUploadCreator fileUploadCreator;
+    private HttpServletRequest request;
+    private MutableRequest parameters;
+    private MultipartConfig config;
+    private Validator validator;
+    private ServletFileUploadCreator fileUploadCreator;
 
     final Multiset<String> indexes = HashMultiset.create();
 
+    @Inject
     public CommonsUploadMultipartInterceptor(HttpServletRequest request, MutableRequest parameters, MultipartConfig cfg,
             Validator validator, ServletFileUploadCreator fileUploadCreator) {
         this.request = request;
@@ -80,6 +84,10 @@ public class CommonsUploadMultipartInterceptor
         this.validator = validator;
         this.config = cfg;
         this.fileUploadCreator = fileUploadCreator;
+    }
+    
+    @Deprecated
+    public CommonsUploadMultipartInterceptor() {
     }
 
     /**

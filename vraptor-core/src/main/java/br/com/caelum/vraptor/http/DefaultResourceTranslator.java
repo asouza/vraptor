@@ -17,6 +17,8 @@
 
 package br.com.caelum.vraptor.http;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,10 +40,15 @@ public class DefaultResourceTranslator implements UrlToResourceTranslator {
 
 	private final Logger logger = LoggerFactory.getLogger(DefaultResourceTranslator.class);
 
-	private final Router router;
+	private Router router;
 
+	@Inject
 	public DefaultResourceTranslator(Router router) {
 		this.router = router;
+	}
+
+	@Deprecated
+	public DefaultResourceTranslator() {
 	}
 
 	public ResourceMethod translate(RequestInfo info) {

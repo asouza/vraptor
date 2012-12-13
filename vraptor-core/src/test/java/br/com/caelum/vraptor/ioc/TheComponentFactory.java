@@ -16,11 +16,14 @@
  */
 package br.com.caelum.vraptor.ioc;
 
+import javax.enterprise.inject.Produces;
+
 /**
  * @author: Fabio Kung
 */
 @Component
 public class TheComponentFactory implements ComponentFactory<NeedsCustomInstantiation> {
+	@Produces
     public NeedsCustomInstantiation getInstance() {
         return new NeedsCustomInstantiation();
     }

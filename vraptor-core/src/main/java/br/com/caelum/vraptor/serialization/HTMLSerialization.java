@@ -16,6 +16,9 @@
 package br.com.caelum.vraptor.serialization;
 
 import static br.com.caelum.vraptor.view.Results.page;
+
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.interceptor.TypeNameExtractor;
 
@@ -26,12 +29,17 @@ import br.com.caelum.vraptor.interceptor.TypeNameExtractor;
  */
 public class HTMLSerialization implements Serialization {
 
-	private final Result result;
-	private final TypeNameExtractor extractor;
+	private Result result;
+	private TypeNameExtractor extractor;
 
+	@Inject
 	public HTMLSerialization(Result result, TypeNameExtractor extractor) {
 		this.result = result;
 		this.extractor = extractor;
+	}
+	
+	@Deprecated
+	public HTMLSerialization() {
 	}
 
 	public boolean accepts(String format) {

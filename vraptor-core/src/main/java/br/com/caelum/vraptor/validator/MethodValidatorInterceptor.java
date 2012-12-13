@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.validation.Constraint;
 import javax.validation.MessageInterpolator;
 import javax.validation.Valid;
@@ -57,13 +58,14 @@ public class MethodValidatorInterceptor
 
     private static final Logger logger = LoggerFactory.getLogger(MethodValidatorInterceptor.class);
 
-    private final MethodValidator methodValidator;
-    private final ParameterNameProvider provider;
-    private final Localization localization;
-    private final MessageInterpolator interpolator;
-    private final MethodInfo methodInfo;
-    private final Validator validator;
+    private MethodValidator methodValidator;
+    private ParameterNameProvider provider;
+    private Localization localization;
+    private MessageInterpolator interpolator;
+    private MethodInfo methodInfo;
+    private Validator validator;
 
+    @Inject
     public MethodValidatorInterceptor(ParameterNameProvider provider, Localization localization,
             MessageInterpolator interpolator, Validator validator, MethodInfo methodInfo,
             MethodValidator methodValidator) {
@@ -73,6 +75,10 @@ public class MethodValidatorInterceptor
         this.validator = validator;
         this.methodInfo = methodInfo;
         this.methodValidator = methodValidator;
+    }
+    
+    @Deprecated
+    public MethodValidatorInterceptor() {
     }
 
     public boolean accepts(ResourceMethod method) {

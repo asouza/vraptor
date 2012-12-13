@@ -20,6 +20,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.http.ParameterNameProvider;
 import br.com.caelum.vraptor.interceptor.TypeNameExtractor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
@@ -38,14 +40,19 @@ import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 @Deserializes({"application/json","json"})
 public class JsonDeserializer implements Deserializer{
 
-	private final ParameterNameProvider provider;
-	private final XStreamBuilder builder;
-	private final TypeNameExtractor extractor;
+	private ParameterNameProvider provider;
+	private XStreamBuilder builder;
+	private TypeNameExtractor extractor;
 
+	@Inject
 	public JsonDeserializer(ParameterNameProvider provider,TypeNameExtractor extractor, XStreamBuilder builder) {
 		this.provider = provider;
 		this.extractor = extractor;
 		this.builder = builder;
+	}
+	
+	@Deprecated
+	public JsonDeserializer() {
 	}
 
 

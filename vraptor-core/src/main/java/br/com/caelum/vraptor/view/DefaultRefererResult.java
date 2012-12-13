@@ -22,6 +22,8 @@ import static br.com.caelum.vraptor.view.Results.page;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.Localization;
@@ -30,18 +32,20 @@ import br.com.caelum.vraptor.http.ParametersProvider;
 import br.com.caelum.vraptor.http.route.MethodNotAllowedException;
 import br.com.caelum.vraptor.http.route.ResourceNotFoundException;
 import br.com.caelum.vraptor.http.route.Router;
+import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 import br.com.caelum.vraptor.resource.HttpMethod;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.validator.Message;
 
 public class DefaultRefererResult implements RefererResult {
 
-	private final MutableRequest request;
-	private final Result result;
-	private final Router router;
-	private final ParametersProvider provider;
-	private final Localization localization;
+	private MutableRequest request;
+	private Result result;
+	private Router router;
+	private ParametersProvider provider;
+	private Localization localization;
 
+	@Inject
 	public DefaultRefererResult(Result result, MutableRequest request, Router router,
 				ParametersProvider provider, Localization localization) {
 		this.result = result;
@@ -49,6 +53,10 @@ public class DefaultRefererResult implements RefererResult {
 		this.router = router;
 		this.provider = provider;
 		this.localization = localization;
+	}
+
+	@Deprecated
+	public DefaultRefererResult() {
 	}
 
 	public void forward() throws IllegalStateException {

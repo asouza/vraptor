@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.vraptor.http.ParameterNameProvider;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
@@ -32,9 +34,15 @@ import br.com.caelum.vraptor.ioc.ApplicationScoped;
 @ApplicationScoped
 public class DefaultTypeFinder implements TypeFinder {
 
-	private final ParameterNameProvider provider;
+	private ParameterNameProvider provider;
+	@Inject
 	public DefaultTypeFinder(ParameterNameProvider provider) {
 		this.provider = provider;
+	}
+	
+	@Deprecated
+	public DefaultTypeFinder(){
+		
 	}
 	public Map<String, Class<?>> getParameterTypes(Method method, String[] parameterPaths) {
 		Map<String,Class<?>> result = new HashMap<String, Class<?>>();

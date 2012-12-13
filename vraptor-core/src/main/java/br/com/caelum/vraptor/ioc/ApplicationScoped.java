@@ -23,6 +23,8 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import javax.enterprise.inject.Stereotype;
+
 import com.google.inject.ScopeAnnotation;
 
 /**
@@ -32,5 +34,7 @@ import com.google.inject.ScopeAnnotation;
 @Retention(RUNTIME)
 @Documented
 @ScopeAnnotation
+@Stereotype
+@javax.enterprise.context.ApplicationScoped
 public @interface ApplicationScoped {
 }

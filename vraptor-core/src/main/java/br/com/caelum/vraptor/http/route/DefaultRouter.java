@@ -27,6 +27,8 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.VRaptorException;
 import br.com.caelum.vraptor.core.Converters;
 import br.com.caelum.vraptor.http.MutableRequest;
@@ -50,13 +52,14 @@ import com.google.common.collect.Iterators;
 @ApplicationScoped
 public class DefaultRouter implements Router {
 
-	private final Proxifier proxifier;
-	private final Collection<Route> routes = new PriorityRoutesList();
-	private final TypeFinder finder;
-	private final Converters converters;
-	private final ParameterNameProvider nameProvider;
-    private final Evaluator evaluator;
+	private  Proxifier proxifier;
+	private  Collection<Route> routes = new PriorityRoutesList();
+	private  TypeFinder finder;
+	private  Converters converters;
+	private  ParameterNameProvider nameProvider;
+    private  Evaluator evaluator;
 
+    @Inject
     public DefaultRouter(RoutesConfiguration config,
 			Proxifier proxifier, TypeFinder finder, Converters converters, ParameterNameProvider nameProvider, Evaluator evaluator) {
 		this.proxifier = proxifier;
@@ -65,6 +68,11 @@ public class DefaultRouter implements Router {
 		this.nameProvider = nameProvider;
         this.evaluator = evaluator;
 		config.config(this);
+	}
+    
+    @Deprecated
+    public DefaultRouter() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public RouteBuilder builderFor(String uri) {

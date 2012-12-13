@@ -22,6 +22,8 @@ import static org.joda.time.format.DateTimeFormat.shortDate;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
@@ -38,10 +40,15 @@ import br.com.caelum.vraptor.core.Localization;
 @Convert(LocalDate.class)
 public class LocalDateConverter implements Converter<LocalDate> {
 
-    private final Localization localization;
+    private Localization localization;
 
+    @Inject
 	public LocalDateConverter(Localization localization) {
         this.localization = localization;
+    }
+    
+    @Deprecated
+    public LocalDateConverter() {
     }
 
     public LocalDate convert(String value, Class<? extends LocalDate> type, ResourceBundle bundle) {

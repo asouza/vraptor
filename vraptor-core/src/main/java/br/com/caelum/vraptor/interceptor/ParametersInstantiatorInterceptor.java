@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,17 +51,18 @@ import br.com.caelum.vraptor.view.FlashScope;
 @Intercepts(after=ResourceLookupInterceptor.class)
 @Lazy
 public class ParametersInstantiatorInterceptor implements Interceptor {
-    private final ParametersProvider provider;
-    private final ParameterNameProvider parameterNameProvider;
-    private final MethodInfo parameters;
+    private ParametersProvider provider;
+    private ParameterNameProvider parameterNameProvider;
+    private MethodInfo parameters;
 
     private static final Logger logger = LoggerFactory.getLogger(ParametersInstantiatorInterceptor.class);
-    private final Validator validator;
-    private final Localization localization;
-	private final List<Message> errors = new ArrayList<Message>();
-	private final MutableRequest request;
-	private final FlashScope flash;
+    private Validator validator;
+    private Localization localization;
+	private List<Message> errors = new ArrayList<Message>();
+	private MutableRequest request;
+	private FlashScope flash;
 
+	@Inject
     public ParametersInstantiatorInterceptor(ParametersProvider provider, ParameterNameProvider parameterNameProvider, MethodInfo parameters,
             Validator validator, Localization localization, MutableRequest request, FlashScope flash) {
         this.provider = provider;
@@ -70,6 +73,10 @@ public class ParametersInstantiatorInterceptor implements Interceptor {
 		this.request = request;
 		this.flash = flash;
     }
+	
+	@Deprecated
+	public ParametersInstantiatorInterceptor() {
+	}
 
     public boolean accepts(ResourceMethod method) {
         return method.getMethod().getParameterTypes().length > 0;

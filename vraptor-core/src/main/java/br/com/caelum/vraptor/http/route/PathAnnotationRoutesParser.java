@@ -30,6 +30,8 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import javassist.Modifier;
 import net.vidageek.mirror.dsl.Mirror;
 import br.com.caelum.vraptor.Delete;
@@ -64,10 +66,16 @@ import com.google.common.base.Predicate;
 @ApplicationScoped
 public class PathAnnotationRoutesParser implements RoutesParser {
 
-	private final Router router;
+	private Router router;
 
+	@Inject
 	public PathAnnotationRoutesParser(Router router) {
 		this.router = router;
+	}
+	
+	@Deprecated
+	public PathAnnotationRoutesParser() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public List<Route> rulesFor(ResourceClass resource) {

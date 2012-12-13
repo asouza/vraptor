@@ -19,6 +19,8 @@ package br.com.caelum.vraptor.core;
 
 import java.util.LinkedList;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +28,7 @@ import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.interceptor.ForwardToDefaultViewInterceptor;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.ioc.PrototypeScoped;
+import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
 /**
@@ -38,11 +41,16 @@ public class DefaultInterceptorStack implements InterceptorStack {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultInterceptorStack.class);
 
-    private final LinkedList<InterceptorHandler> interceptors = new LinkedList<InterceptorHandler>();
-    private final InterceptorHandlerFactory handlerFactory;
+    private LinkedList<InterceptorHandler> interceptors = new LinkedList<InterceptorHandler>();
+    private InterceptorHandlerFactory handlerFactory;
 
+    @Inject
     public DefaultInterceptorStack(InterceptorHandlerFactory handlerFactory) {
         this.handlerFactory = handlerFactory;
+    }
+    
+    @Deprecated
+    public DefaultInterceptorStack() {
     }
 
     public void next(ResourceMethod method, Object resourceInstance) throws InterceptionException {

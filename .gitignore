@@ -43,3 +43,6 @@ vraptor-blank-project-scala/lib
 vraptor-blank-project-scala/lib_managed
 vraptor-blank-project-scala/project/boot/
 vraptor-blank-project-scala/project/build/target/
+vraptor-mydvds/.classpath
+vraptor-mydvds/.project
+vraptor-mydvds/.settings/

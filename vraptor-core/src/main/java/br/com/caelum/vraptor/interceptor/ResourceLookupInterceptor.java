@@ -17,6 +17,8 @@
 
 package br.com.caelum.vraptor.interceptor;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,12 +45,13 @@ import br.com.caelum.vraptor.resource.ResourceNotFoundHandler;
 public class ResourceLookupInterceptor implements Interceptor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceLookupInterceptor.class);
-	private final UrlToResourceTranslator translator;
-	private final MethodInfo methodInfo;
-	private final RequestInfo requestInfo;
-	private final ResourceNotFoundHandler resourceNotFoundHandler;
-	private final MethodNotAllowedHandler methodNotAllowedHandler;
+	private UrlToResourceTranslator translator;
+	private MethodInfo methodInfo;
+	private RequestInfo requestInfo;
+	private ResourceNotFoundHandler resourceNotFoundHandler;
+	private MethodNotAllowedHandler methodNotAllowedHandler;
 
+	@Inject
 	public ResourceLookupInterceptor(UrlToResourceTranslator translator, MethodInfo methodInfo,
 			ResourceNotFoundHandler resourceNotFoundHandler, MethodNotAllowedHandler methodNotAllowedHandler,
 			RequestInfo requestInfo) {
@@ -57,6 +60,10 @@ public class ResourceLookupInterceptor implements Interceptor {
 		this.methodNotAllowedHandler = methodNotAllowedHandler;
 		this.resourceNotFoundHandler = resourceNotFoundHandler;
 		this.requestInfo = requestInfo;
+	}
+	
+	@Deprecated
+	public ResourceLookupInterceptor() {
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod ignorableMethod, Object resourceInstance)

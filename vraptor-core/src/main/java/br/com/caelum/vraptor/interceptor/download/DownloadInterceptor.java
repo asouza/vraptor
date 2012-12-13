@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -51,14 +52,19 @@ public class DownloadInterceptor implements Interceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(DownloadInterceptor.class);
 
-	private final HttpServletResponse response;
-	private final MethodInfo info;
-	private final Result result;
+	private HttpServletResponse response;
+	private MethodInfo info;
+	private Result result;
 
+	@Inject
 	public DownloadInterceptor(HttpServletResponse response, MethodInfo info, Result result) {
 		this.response = response;
 		this.info = info;
 		this.result = result;
+	}
+	
+	@Deprecated
+	public DownloadInterceptor() {
 	}
 
 	public boolean accepts(ResourceMethod method) {

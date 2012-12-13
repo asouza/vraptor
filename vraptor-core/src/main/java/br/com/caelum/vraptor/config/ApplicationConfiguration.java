@@ -17,6 +17,7 @@
 
 package br.com.caelum.vraptor.config;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -33,10 +34,15 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 @RequestScoped
 public class ApplicationConfiguration implements Configuration {
 
-	final HttpServletRequest request;
+	HttpServletRequest request;
 
+	@Inject
 	public ApplicationConfiguration(HttpServletRequest request) {
 		this.request = request;
+	}
+
+	@Deprecated
+	public ApplicationConfiguration() {
 	}
 
 	/**

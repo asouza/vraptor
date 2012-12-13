@@ -20,6 +20,8 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.CallbackFilter;
 import net.sf.cglib.proxy.Enhancer;
@@ -60,10 +62,16 @@ public class CglibProxifier
         }
     };
 
-    private final InstanceCreator instanceCreator;
+    private InstanceCreator instanceCreator;
 
+    @Inject
     public CglibProxifier(InstanceCreator instanceCreator) {
         this.instanceCreator = instanceCreator;
+    }
+    
+    @Deprecated
+    public CglibProxifier(){
+    	
     }
 
     public <T> T proxify(Class<T> type, MethodInvocation<? super T> handler) {

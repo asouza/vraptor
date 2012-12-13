@@ -31,6 +31,8 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -55,24 +57,30 @@ import com.google.common.base.Defaults;
  * @author guilherme silveira
  */
 @RequestScoped
+@Default
 public class OgnlParametersProvider implements ParametersProvider {
 
-	private final ParameterNameProvider provider;
+	private ParameterNameProvider provider;
 
 	private static final Logger logger = LoggerFactory.getLogger(OgnlParametersProvider.class);
 
-	private final HttpServletRequest request;
+	private HttpServletRequest request;
 
-	private final Container container;
+	private Container container;
 
-	private final OgnlFacade ognl;
+	private OgnlFacade ognl;
 
+	@Inject
 	public OgnlParametersProvider(ParameterNameProvider provider,
 			HttpServletRequest request, Container container, OgnlFacade ognl) {
 		this.provider = provider;
 		this.request = request;
 		this.container = container;
 		this.ognl = ognl;
+	}
+	
+	@Deprecated
+	public OgnlParametersProvider() {
 	}
 
 	public Object[] getParametersFor(ResourceMethod method, List<Message> errors, ResourceBundle bundle) {

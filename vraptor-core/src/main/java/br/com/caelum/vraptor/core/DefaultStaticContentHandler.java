@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -44,10 +45,16 @@ public class DefaultStaticContentHandler implements StaticContentHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultStaticContentHandler.class);
 
-	private final ServletContext context;
+	private ServletContext context;
 
+	@Inject
 	public DefaultStaticContentHandler(ServletContext context) {
 		this.context = context;
+	}
+	
+	@Deprecated
+	public DefaultStaticContentHandler() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public boolean requestingStaticFile(HttpServletRequest request) throws MalformedURLException {

@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.inject.Inject;
+
 import ognl.MethodFailedException;
 import ognl.NoSuchPropertyException;
 import ognl.Ognl;
@@ -52,11 +54,12 @@ public class OgnlFacade {
 
 	private static final Logger logger = LoggerFactory.getLogger(OgnlFacade.class);
 
-	private final Proxifier proxifier;
-	private final Converters converters;
-	private final EmptyElementsRemoval removal;
-	private final Map<Object, OgnlContext> contexts = Maps.newHashMap();
+	private Proxifier proxifier;
+	private Converters converters;
+	private EmptyElementsRemoval removal;
+	private Map<Object, OgnlContext> contexts = Maps.newHashMap();
 
+	@Inject
 	public OgnlFacade(Converters converters, EmptyElementsRemoval removal, Proxifier proxifier) {
 		this.converters = converters;
 		this.removal = removal;
@@ -64,6 +67,10 @@ public class OgnlFacade {
 		OgnlRuntime.setNullHandler(Object.class, new ReflectionBasedNullHandler(proxifier));
 		OgnlRuntime.setPropertyAccessor(List.class, new ListAccessor(converters));
 		OgnlRuntime.setPropertyAccessor(Object[].class, new ArrayAccessor());
+	}
+	
+	@Deprecated
+	public OgnlFacade() {
 	}
 
 	public void startContext(String name, Type type, Object root, ResourceBundle bundle) {

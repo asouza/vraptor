@@ -19,6 +19,8 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.interceptor.DefaultTypeNameExtractor;
 import br.com.caelum.vraptor.interceptor.TypeNameExtractor;
 import br.com.caelum.vraptor.ioc.Component;
@@ -42,15 +44,20 @@ import com.thoughtworks.xstream.io.json.JsonWriter;
 @Component
 public class XStreamBuilderImpl implements XStreamBuilder {
 
-	private final XStreamConverters converters;
-	private final TypeNameExtractor extractor;
+	private XStreamConverters converters;
+	private TypeNameExtractor extractor;
 	
 	private boolean indented;
 	private boolean withoutRoot;
 	
+	@Inject
 	public XStreamBuilderImpl(XStreamConverters converters, TypeNameExtractor extractor) {
 		this.converters = converters;
 		this.extractor = extractor;
+	}
+	
+	@Deprecated
+	public XStreamBuilderImpl() {
 	}
 
 	public static XStreamBuilder cleanInstance(Converter...converters) {

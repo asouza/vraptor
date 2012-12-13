@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.interceptor.TypeNameExtractor;
@@ -40,16 +41,21 @@ import br.com.caelum.vraptor.view.ResultException;
  */
 public class XStreamJSONPSerialization implements JSONPSerialization {
 
-	private final HttpServletResponse response;
-	private final TypeNameExtractor extractor;
-	private final ProxyInitializer initializer;
-	private final XStreamBuilder builder;
+	private HttpServletResponse response;
+	private TypeNameExtractor extractor;
+	private ProxyInitializer initializer;
+	private XStreamBuilder builder;
 
+	@Inject
 	public XStreamJSONPSerialization(HttpServletResponse response, TypeNameExtractor extractor, ProxyInitializer initializer, XStreamBuilder builder) {
 		this.response = response;
 		this.extractor = extractor;
 		this.initializer = initializer;
 		this.builder = builder;
+	}
+	
+	@Deprecated
+	public XStreamJSONPSerialization() {
 	}
 
 	public JSONSerialization withCallback(final String callbackName) {

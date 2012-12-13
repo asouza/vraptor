@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -84,16 +85,21 @@ public class Servlet3MultipartInterceptor
     public static final String ACCEPT_MULTIPART = "multipart/form-data";
     public static final String CONTENT_DISPOSITION_KEY = "content-disposition";
 
-    private final HttpServletRequest request;
-    private final MutableRequest parameters;
-    private final Validator validator;
+    private HttpServletRequest request;
+    private MutableRequest parameters;
+    private Validator validator;
 
     final Multiset<String> indexes = HashMultiset.create();
 
+    @Inject
     public Servlet3MultipartInterceptor(HttpServletRequest request, MutableRequest parameters, Validator validator) {
         this.request = request;
         this.parameters = parameters;
         this.validator = validator;
+    }
+    
+    @Deprecated
+    public Servlet3MultipartInterceptor() {
     }
 
     /**

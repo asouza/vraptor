@@ -19,6 +19,8 @@ package br.com.caelum.vraptor.interceptor;
 
 import java.lang.reflect.Type;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,14 +43,19 @@ public class OutjectResult implements Interceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(OutjectResult.class);
 
-	private final Result result;
-	private final MethodInfo info;
-	private final TypeNameExtractor extractor;
+	private Result result;
+	private MethodInfo info;
+	private TypeNameExtractor extractor;
 
+	@Inject
 	public OutjectResult(Result result, MethodInfo info, TypeNameExtractor extractor) {
 		this.result = result;
 		this.info = info;
 		this.extractor = extractor;
+	}
+	
+	@Deprecated
+	public OutjectResult() {
 	}
 
 	public boolean accepts(ResourceMethod method) {

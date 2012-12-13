@@ -17,25 +17,6 @@
 
 package br.com.caelum.vraptor.ioc;
 
-import static br.com.caelum.vraptor.VRaptorMatchers.canHandle;
-import static br.com.caelum.vraptor.VRaptorMatchers.hasOneCopyOf;
-import static br.com.caelum.vraptor.config.BasicConfiguration.BASE_PACKAGES_PARAMETER_NAME;
-import static br.com.caelum.vraptor.config.BasicConfiguration.SCANNING_PARAM;
-import static java.lang.Thread.currentThread;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.sameInstance;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collection;
@@ -80,6 +61,28 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.scan.ScannotationComponentScannerTest;
 
 import com.google.common.base.Objects;
+
+import static br.com.caelum.vraptor.VRaptorMatchers.canHandle;
+import static br.com.caelum.vraptor.VRaptorMatchers.hasOneCopyOf;
+import static br.com.caelum.vraptor.config.BasicConfiguration.BASE_PACKAGES_PARAMETER_NAME;
+import static br.com.caelum.vraptor.config.BasicConfiguration.SCANNING_PARAM;
+import static java.lang.Thread.currentThread;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.sameInstance;
 
 /**
  * Acceptance test that checks if the container is capable of giving all
@@ -138,7 +141,7 @@ public abstract class GenericContainerTest {
 
 	@ApplicationScoped
 	public static class MyAppComponentWithLifecycle {
-		public int calls = 0;
+		private int calls = 0;
 
 		@PreDestroy
 		public void z() {
@@ -367,7 +370,12 @@ public abstract class GenericContainerTest {
 
 		@PreDestroy
 		public void preDestroy() {
+			System.out.println("destruindo");
 			this.destroyed = true;
+		}
+		
+		public boolean isDestroyed() {
+			return destroyed;
 		}
 	}
 
@@ -423,9 +431,9 @@ public abstract class GenericContainerTest {
 	@Test
 	public void shoudCallPredestroyExactlyOneTimeForComponentsScannedFromTheClasspath() {
 		CustomComponentWithLifecycleInTheClasspath component = getFromContainer(CustomComponentWithLifecycleInTheClasspath.class);
-		assertThat(component.callsToPreDestroy, is(equalTo(0)));
+		assertThat(component.getCallsToPreDestroy(), is(equalTo(0)));
 		provider.stop();
-		assertThat(component.callsToPreDestroy, is(equalTo(1)));
+		assertThat(component.getCallsToPreDestroy(), is(equalTo(1)));
 
 		resetProvider();
 	}
@@ -433,9 +441,9 @@ public abstract class GenericContainerTest {
 	@Test
 	public void shoudCallPredestroyExactlyOneTimeForComponentFactoriesScannedFromTheClasspath() {
 		ComponentFactoryInTheClasspath componentFactory = getFromContainer(ComponentFactoryInTheClasspath.class);
-		assertThat(componentFactory.callsToPreDestroy, is(equalTo(0)));
+		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(0)));
 		provider.stop();
-		assertThat(componentFactory.callsToPreDestroy, is(equalTo(1)));
+		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(1)));
 
 		resetProvider();
 	}

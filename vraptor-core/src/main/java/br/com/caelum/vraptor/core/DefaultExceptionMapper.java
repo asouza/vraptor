@@ -21,6 +21,8 @@ import static com.google.common.collect.Maps.newLinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,12 +47,17 @@ public class DefaultExceptionMapper
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultExceptionMapper.class);
 
-    private final Map<Class<? extends Exception>, ExceptionRecorder<Result>> exceptions;
-    private final Proxifier proxifier;
+    private Map<Class<? extends Exception>, ExceptionRecorder<Result>> exceptions;
+    private Proxifier proxifier;
 
+    @Inject
     public DefaultExceptionMapper(Proxifier proxifier) {
         this.proxifier = proxifier;
         this.exceptions = newLinkedHashMap();
+    }
+    
+    @Deprecated
+    public DefaultExceptionMapper() {
     }
 
     public Result record(Class<? extends Exception> exception) {

@@ -16,6 +16,7 @@
  */
 package br.com.caelum.vraptor.interceptor;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -51,14 +52,19 @@ public class ExceptionHandlerInterceptor
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerInterceptor.class);
 
-    private final ExceptionMapper exceptions;
-    private final Result result;
-    private final HttpServletRequest request;
+    private ExceptionMapper exceptions;
+    private Result result;
+    private HttpServletRequest request;
 
+    @Inject
     public ExceptionHandlerInterceptor(ExceptionMapper exceptions, Result result, HttpServletRequest request) {
         this.exceptions = exceptions;
         this.result = result;
         this.request = request;
+    }
+    
+    @Deprecated
+    public ExceptionHandlerInterceptor() {
     }
 
     public boolean accepts(ResourceMethod method) {

@@ -19,6 +19,7 @@ package br.com.caelum.vraptor.http.iogi;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.iogi.Instantiator;
@@ -50,11 +51,12 @@ import com.google.common.collect.ImmutableList;
 @Component
 @RequestScoped
 public class VRaptorInstantiator implements InstantiatorWithErrors, Instantiator<Object> {
-	private final Localization localization;
-	private final MultiInstantiator multiInstantiator;
+	private Localization localization;
+	private MultiInstantiator multiInstantiator;
 	private List<Message> errors;
-	private final DependencyProvider provider;
+	private DependencyProvider provider;
 
+	@Inject
 	public VRaptorInstantiator(Converters converters, DependencyProvider provider, Localization localization, ParameterNamesProvider parameterNameProvider, HttpServletRequest request) {
 		this.provider = provider;
 		this.localization = localization;
@@ -70,6 +72,10 @@ public class VRaptorInstantiator implements InstantiatorWithErrors, Instantiator
 			objectInstantiator);
 		multiInstantiator = new MultiInstantiator(instantiatorList);
 	}
+	
+	@Deprecated
+	public VRaptorInstantiator() {
+	}	
 
 	public boolean isAbleToInstantiate(Target<?> target) {
 		return true;

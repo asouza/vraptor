@@ -17,6 +17,8 @@
 
 package br.com.caelum.vraptor.view;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.http.FormatResolver;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.caelum.vraptor.resource.ResourceMethod;
@@ -32,10 +34,15 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 @RequestScoped
 public class DefaultPathResolver implements PathResolver {
 
-	private final FormatResolver resolver;
+	private FormatResolver resolver;
 
+	@Inject
 	public DefaultPathResolver(FormatResolver resolver) {
 		this.resolver = resolver;
+	}
+	
+	@Deprecated
+	public DefaultPathResolver() {
 	}
 
 	public String pathFor(ResourceMethod method) {

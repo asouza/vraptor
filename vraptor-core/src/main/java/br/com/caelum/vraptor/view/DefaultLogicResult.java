@@ -22,6 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -52,17 +53,18 @@ public class DefaultLogicResult implements LogicResult {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultLogicResult.class);
 
-	private final Proxifier proxifier;
-	private final Router router;
-	private final MutableRequest request;
-	private final HttpServletResponse response;
-	private final Container container;
-	private final PathResolver resolver;
-	private final TypeNameExtractor extractor;
+	private Proxifier proxifier;
+	private Router router;
+	private MutableRequest request;
+	private HttpServletResponse response;
+	private Container container;
+	private PathResolver resolver;
+	private TypeNameExtractor extractor;
 
-	private final FlashScope flash;
-	private final MethodInfo methodInfo;
+	private FlashScope flash;
+	private MethodInfo methodInfo;
 
+	@Inject
 	public DefaultLogicResult(Proxifier proxifier, Router router, MutableRequest request, HttpServletResponse response,
 			Container container, PathResolver resolver, TypeNameExtractor extractor, FlashScope flash, MethodInfo methodInfo) {
 		this.proxifier = proxifier;
@@ -74,6 +76,10 @@ public class DefaultLogicResult implements LogicResult {
 		this.extractor = extractor;
 		this.flash = flash;
 		this.methodInfo = methodInfo;
+	}
+	
+	@Deprecated
+	public DefaultLogicResult() {
 	}
 
 	/**

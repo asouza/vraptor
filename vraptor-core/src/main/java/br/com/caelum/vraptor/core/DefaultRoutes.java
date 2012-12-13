@@ -19,6 +19,8 @@ package br.com.caelum.vraptor.core;
 
 import java.util.EnumSet;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.http.route.Router;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
@@ -35,14 +37,20 @@ import br.com.caelum.vraptor.resource.HttpMethod;
 @ApplicationScoped
 public class DefaultRoutes implements Routes{
 
-	private final Proxifier proxifier;
-	private final Router router;
+	private Proxifier proxifier;
+	private Router router;
 
+	@Inject
 	public DefaultRoutes(Router router, Proxifier proxifier) {
 		this.router = router;
 		this.proxifier = proxifier;
 	}
 
+
+	@Deprecated
+	public DefaultRoutes() {
+		// TODO Auto-generated constructor stub
+	}
 	private String uri;
 
 	public <T> T uriFor(final Class<T> type) {

@@ -26,6 +26,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -38,6 +40,7 @@ import br.com.caelum.vraptor.http.ParameterNameProvider;
 import br.com.caelum.vraptor.http.ParametersProvider;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
+import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.validator.Message;
 
@@ -45,15 +48,20 @@ import br.com.caelum.vraptor.validator.Message;
 @RequestScoped
 public class IogiParametersProvider implements ParametersProvider {
 	private static final Logger LOGGER = LoggerFactory.getLogger(IogiParametersProvider.class);
-	private final ParameterNameProvider nameProvider;
-	private final HttpServletRequest servletRequest;
-	private final InstantiatorWithErrors instantiator;
+	private ParameterNameProvider nameProvider;
+	private HttpServletRequest servletRequest;
+	private InstantiatorWithErrors instantiator;
 
+	@Inject
 	public IogiParametersProvider(ParameterNameProvider provider, HttpServletRequest parameters, InstantiatorWithErrors instantiator) {
 		this.nameProvider = provider;
 		this.servletRequest = parameters;
 		this.instantiator = instantiator;
 		LOGGER.debug("IogiParametersProvider is up");
+	}
+	
+	@Deprecated
+	public IogiParametersProvider() {
 	}
 
 	public Object[] getParametersFor(ResourceMethod method, List<Message> errors, ResourceBundle bundle) {

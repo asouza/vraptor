@@ -22,6 +22,8 @@ import static br.com.caelum.vraptor.view.Results.nothing;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,13 +44,18 @@ import br.com.caelum.vraptor.validator.ValidationException;
 @Intercepts(after=ParametersInstantiatorInterceptor.class, before={})
 public class ExecuteMethodInterceptor implements Interceptor {
 
-	private final MethodInfo info;
-	private final Validator validator;
+	private MethodInfo info;
+	private Validator validator;
 	private final static Logger log = LoggerFactory.getLogger(ExecuteMethodInterceptor.class);
 
+	@Inject
 	public ExecuteMethodInterceptor(MethodInfo info, Validator validator) {
 		this.info = info;
 		this.validator = validator;
+	}
+	
+	@Deprecated
+	public ExecuteMethodInterceptor() {
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance)

@@ -15,6 +15,7 @@
  */
 package br.com.caelum.vraptor.http;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.vraptor.view.AcceptHeaderToFormat;
@@ -29,12 +30,17 @@ import br.com.caelum.vraptor.view.AcceptHeaderToFormat;
  */
 public class DefaultFormatResolver implements FormatResolver {
 
-	private final HttpServletRequest request;
-	private final AcceptHeaderToFormat acceptHeaderToFormat;
+	private HttpServletRequest request;
+	private AcceptHeaderToFormat acceptHeaderToFormat;
 
+	@Inject
 	public DefaultFormatResolver(HttpServletRequest request, AcceptHeaderToFormat acceptHeaderToFormat) {
 		this.request = request;
 		this.acceptHeaderToFormat = acceptHeaderToFormat;
+	}
+	
+	@Deprecated
+	public DefaultFormatResolver() {
 	}
 
 	public String getAcceptFormat() {

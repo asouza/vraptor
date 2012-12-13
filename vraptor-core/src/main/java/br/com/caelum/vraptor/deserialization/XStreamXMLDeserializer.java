@@ -18,6 +18,8 @@ package br.com.caelum.vraptor.deserialization;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.http.ParameterNameProvider;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.resource.ResourceMethod;
@@ -36,12 +38,17 @@ import com.thoughtworks.xstream.XStream;
 @Component
 public class XStreamXMLDeserializer implements XMLDeserializer {
 
-	private final ParameterNameProvider provider;
-	private final XStreamBuilder builder;
+	private ParameterNameProvider provider;
+	private XStreamBuilder builder;
 
+	@Inject
 	public XStreamXMLDeserializer(ParameterNameProvider provider, XStreamBuilder builder) {
 		this.provider = provider;
 		this.builder = builder;
+	}
+	
+	@Deprecated
+	public XStreamXMLDeserializer() {
 	}
 
 	public Object[] deserialize(InputStream inputStream, ResourceMethod method) {

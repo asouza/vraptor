@@ -15,6 +15,9 @@
  */
 package br.com.caelum.vraptor.core;
 
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.VRaptorException;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.interceptor.InterceptorRegistry;
@@ -27,15 +30,21 @@ import br.com.caelum.vraptor.ioc.PrototypeScoped;
  *
  */
 @PrototypeScoped
+@Default
 public class EnhancedRequestExecution implements RequestExecution {
 
-	private final InterceptorRegistry registry;
-	private final InterceptorStack stack;
+	private InterceptorRegistry registry;
+	private InterceptorStack stack;
 
+	@Inject
 	public EnhancedRequestExecution(InterceptorStack stack, InterceptorRegistry registry) {
 		this.stack = stack;
 		this.registry = registry;
 	}
+	
+	@Deprecated
+	public EnhancedRequestExecution() {
+	}	
 
 	public void execute() throws VRaptorException {
 		for (Class<? extends Interceptor> interceptor : registry.all()) {

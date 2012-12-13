@@ -19,6 +19,7 @@ package br.com.caelum.vraptor.restfulie.headers;
 
 import java.util.Calendar;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -30,12 +31,17 @@ import br.com.caelum.vraptor.restfulie.resource.RestfulEntity;
 @Component
 public class DefaultRestHeadersHandler implements RestHeadersHandler {
 
-	private final HttpServletResponse response;
-	private final RestDefaults defaults;
+	private HttpServletResponse response;
+	private RestDefaults defaults;
 
+	@Inject
 	public DefaultRestHeadersHandler(HttpServletResponse response, RestDefaults defaults) {
 		this.defaults = defaults;
 		this.response = response;
+	}
+	
+	@Deprecated
+	public DefaultRestHeadersHandler() {
 	}
 
 	public void handle(HypermediaResource resource) {

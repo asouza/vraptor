@@ -17,6 +17,8 @@
 
 package br.com.caelum.vraptor.restfulie;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.http.route.Router;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
@@ -36,12 +38,17 @@ import br.com.caelum.vraptor.restfulie.relation.RelationBuilder;
 @ApplicationScoped
 public class DefaultRestfulie implements Restfulie {
 
-	private final Proxifier proxifier;
-	private final Router router;
+	private Proxifier proxifier;
+	private Router router;
 
+	@Inject
 	public DefaultRestfulie(Proxifier proxifier, Router router) {
 		this.proxifier = proxifier;
 		this.router = router;
+	}
+	
+	@Deprecated
+	public DefaultRestfulie() {
 	}
 
 	public RelationBuilder newRelationBuilder() {

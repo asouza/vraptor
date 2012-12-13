@@ -17,6 +17,7 @@
 
 package br.com.caelum.vraptor.restfulie.serialization;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.config.Configuration;
@@ -40,13 +41,19 @@ import com.thoughtworks.xstream.converters.reflection.ReflectionConverter;
 @RequestScoped
 public class RestfulSerializationJSON extends XStreamJSONSerialization {
 
-	private final Restfulie restfulie;
-	private final Configuration config;
+	private Restfulie restfulie;
+	private Configuration config;
 
+	@Inject
 	public RestfulSerializationJSON(HttpServletResponse response, TypeNameExtractor extractor, Restfulie restfulie, Configuration config, ProxyInitializer initializer, XStreamBuilder builder) {
 		super(response,extractor,initializer, builder);
 		this.restfulie = restfulie;
 		this.config = config;
+	}
+	
+	@Deprecated
+	public RestfulSerializationJSON() {
+		super(null,null,null,null);
 	}
 
 	/**
