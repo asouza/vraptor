@@ -365,6 +365,7 @@ public abstract class GenericContainerTest {
 	}
 
 	@Component
+	@RequestScoped
 	static public class DisposableComponent {
 		private boolean destroyed;
 
