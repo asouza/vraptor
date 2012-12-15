@@ -22,6 +22,8 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import javax.enterprise.context.Dependent;
+
 import br.com.caelum.vraptor.Convert;
 import br.com.caelum.vraptor.Converter;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
@@ -34,6 +36,8 @@ import br.com.caelum.vraptor.ioc.ApplicationScoped;
  */
 @Convert(Enum.class)
 @ApplicationScoped
+//Pushing the scope for CDI and leaving the vraptor scope for others providers
+@Dependent
 public class EnumConverter<T extends Enum<T>> implements Converter<T> {
 
 	/**
