@@ -35,9 +35,6 @@ import br.com.caelum.vraptor.ioc.ApplicationScoped;
  * @author Guilherme Silveira
  */
 @Convert(Enum.class)
-@ApplicationScoped
-//Pushing the scope for CDI and leaving the vraptor scope for others providers
-@Dependent
 public class EnumConverter<T extends Enum<T>> implements Converter<T> {
 
 	/**
