@@ -18,6 +18,8 @@ package br.com.caelum.vraptor.ioc;
 
 import java.lang.annotation.Annotation;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,12 +33,17 @@ import br.com.caelum.vraptor.interceptor.InterceptorSequence;
 @ApplicationScoped
 public class InterceptorStereotypeHandler implements StereotypeHandler {
 	private static final Logger logger = LoggerFactory.getLogger(InterceptorStereotypeHandler.class);
-	private final InterceptorRegistry registry;
-	private final ComponentRegistry componentRegistry;
+	private InterceptorRegistry registry;
+	private ComponentRegistry componentRegistry;
 
+	@Inject
 	public InterceptorStereotypeHandler(InterceptorRegistry registry, ComponentRegistry componentRegistry) {
 		this.registry = registry;
 		this.componentRegistry = componentRegistry;
+	}
+
+	@Deprecated
+	public InterceptorStereotypeHandler() {
 	}
 
 	public Class<? extends Annotation> stereotype() {

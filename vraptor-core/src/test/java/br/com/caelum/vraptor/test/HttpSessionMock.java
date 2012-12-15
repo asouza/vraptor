@@ -16,6 +16,7 @@
  */
 package br.com.caelum.vraptor.test;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ import javax.servlet.http.HttpSessionContext;
  * @author Fabio Kung
  */
 @SuppressWarnings({"deprecation", "unchecked"})
-public class HttpSessionMock implements HttpSession {
+public class HttpSessionMock implements HttpSession,Serializable {
     private ServletContext context;
     private String id;
 

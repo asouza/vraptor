@@ -58,17 +58,13 @@ public class XStreamConverters {
         public boolean canConvert(Class aClass) {return false;}
     }
 
+    @Inject
 	public XStreamConverters(List<Converter> converters, List<SingleValueConverter> singleValueConverters)
 	{
 		this.converters = Objects.firstNonNull(converters, Lists.<Converter>newArrayList());
 		this.singleValueConverters = Objects.firstNonNull(singleValueConverters, Lists.<SingleValueConverter>newArrayList());
 	}
 	
-	@Inject
-	public XStreamConverters(Instance<Converter> possibleConverters, Instance<SingleValueConverter> possibleSingleValueConverters)
-	{
-		this(Lists.newArrayList(possibleConverters),Lists.newArrayList(possibleSingleValueConverters));
-	}
     
     @Deprecated
     public XStreamConverters()

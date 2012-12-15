@@ -28,7 +28,6 @@ import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.interceptor.ForwardToDefaultViewInterceptor;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.ioc.PrototypeScoped;
-import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
 /**

@@ -23,6 +23,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
@@ -38,17 +39,24 @@ import br.com.caelum.vraptor.view.LinkToHandler;
 @ApplicationScoped
 @org.springframework.stereotype.Component("stereotypeHandler")
 public class ResourceHandler implements StereotypeHandler {
-	private final Logger logger = LoggerFactory.getLogger(ResourceHandler.class);
-	private final Router router;
-	private final RoutesParser parser;
-	private final ServletContext context;
+	private final Logger logger = LoggerFactory
+			.getLogger(ResourceHandler.class);
+	private Router router;
+	private RoutesParser parser;
+	private ServletContext context;
 
-	public ResourceHandler(Router router, RoutesParser parser, ServletContext context) {
+	@Inject
+	public ResourceHandler(Router router, RoutesParser parser,
+			ServletContext context) {
 		this.router = router;
 		this.parser = parser;
 		this.context = context;
 	}
 	
+	@Deprecated
+	public ResourceHandler() {
+	}
+
 	@PostConstruct
 	public void configureLinkToHandler() {
 		new LinkToHandler(context, router).start();
@@ -56,7 +64,8 @@ public class ResourceHandler implements StereotypeHandler {
 
 	public void handle(Class<?> annotatedType) {
 		logger.debug("Found resource: {}", annotatedType);
-		List<Route> routes = parser.rulesFor(new DefaultResourceClass(annotatedType));
+		List<Route> routes = parser.rulesFor(new DefaultResourceClass(
+				annotatedType));
 		for (Route route : routes) {
 			router.add(route);
 		}

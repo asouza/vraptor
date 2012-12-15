@@ -26,7 +26,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,7 +39,6 @@ import br.com.caelum.vraptor.http.ParameterNameProvider;
 import br.com.caelum.vraptor.http.ParametersProvider;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
-import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.validator.Message;
 

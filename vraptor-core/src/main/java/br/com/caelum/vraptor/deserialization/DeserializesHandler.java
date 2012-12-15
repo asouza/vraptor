@@ -17,6 +17,8 @@ package br.com.caelum.vraptor.deserialization;
 
 import java.lang.annotation.Annotation;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,10 +37,15 @@ public class DeserializesHandler implements StereotypeHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(DeserializesHandler.class);
 
-	private final Deserializers deserializers;
+	private Deserializers deserializers;
 
+	@Inject
 	public DeserializesHandler(Deserializers deserializers) {
 		this.deserializers = deserializers;
+	}
+	
+	@Deprecated
+	public DeserializesHandler() {
 	}
 
 	@SuppressWarnings("unchecked")

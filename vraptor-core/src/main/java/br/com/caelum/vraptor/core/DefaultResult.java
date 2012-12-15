@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.caelum.vraptor.Result;
@@ -36,6 +37,7 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
  * @author guilherme silveira
  */
 @RequestScoped
+@Named("result")
 public class DefaultResult extends AbstractResult {
 
     private HttpServletRequest request;

@@ -21,7 +21,6 @@ import javax.enterprise.inject.Default;
 
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
-import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 
 /**
  * An interceptor registry that sorts interceptors based on their before and after conditions

@@ -19,6 +19,7 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
 
+import javax.enterprise.inject.New;
 import javax.inject.Inject;
 
 import br.com.caelum.vraptor.interceptor.DefaultTypeNameExtractor;

@@ -24,7 +24,6 @@ import br.com.caelum.vraptor.Lazy;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Container;
-import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 
 import com.google.common.collect.MapMaker;
 

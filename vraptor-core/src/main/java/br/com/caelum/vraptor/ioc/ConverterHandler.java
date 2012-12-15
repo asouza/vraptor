@@ -18,6 +18,8 @@ package br.com.caelum.vraptor.ioc;
 
 import java.lang.annotation.Annotation;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +36,13 @@ public class ConverterHandler implements StereotypeHandler {
 
 	private Converters converters;
 
+	@Inject
 	public ConverterHandler(Converters converters) {
 		this.converters = converters;
+	}
+	
+	@Deprecated
+	public ConverterHandler() {
 	}
 
 	public void handle(Class<?> annotatedType) {

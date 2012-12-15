@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.vraptor.ioc.RequestScoped;
-import br.com.caelum.vraptor.ioc.cdi.qualifiers.VraptorPreference;
 import br.com.caelum.vraptor.util.EmptyBundle;
 
 import com.google.common.base.Strings;

@@ -38,23 +38,19 @@ import br.com.caelum.vraptor.restfulie.hypermedia.HypermediaResource;
  * @since 3.0.3
  */
 public class DefaultRepresentationResult implements RepresentationResult {
-
+	
 	private FormatResolver formatResolver;
 	private List<Serialization> serializations;
 	private Result result;
 	private RestHeadersHandler headersHandler;
 
+	@Inject
 	public DefaultRepresentationResult(FormatResolver formatResolver, Result result, List<Serialization> serializations, RestHeadersHandler headersHandler) {
 		this.formatResolver = formatResolver;
 		this.result = result;
 		this.serializations = serializations;
 		this.headersHandler = headersHandler;
-	}
-	
-	@Inject
-	public DefaultRepresentationResult(FormatResolver formatResolver, Result result, Instance<Serialization> serializations, RestHeadersHandler headersHandler) {
-		this(formatResolver,result,Lists.newArrayList(serializations.iterator()),headersHandler);
-	}
+	}	
 	
 	@Deprecated
 	public DefaultRepresentationResult() {		

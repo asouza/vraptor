@@ -37,6 +37,7 @@ import br.com.caelum.vraptor.ioc.Stereotype;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Stereotype
+@javax.enterprise.inject.Stereotype
 @RequestScoped
 public @interface Resource {
 }
