@@ -39,8 +39,7 @@ public class ComponentFactoryInTheClasspath implements ComponentFactory<br.com.c
 	}
 	public static Provided PROVIDED = new Provided();
 	
-	@Produces
-	@javax.enterprise.context.ApplicationScoped
+	@Produces		
 	public Provided getInstance() {
 		return PROVIDED;
 	}

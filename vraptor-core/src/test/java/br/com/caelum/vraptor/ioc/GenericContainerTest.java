@@ -205,6 +205,7 @@ public abstract class GenericContainerTest {
 
 	@Component
 	@RequestScoped
+	@Named("teste")
 	public static class MyRequestComponent {
 
 	}
