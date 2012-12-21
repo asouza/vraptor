@@ -99,7 +99,6 @@ public abstract class GenericContainerTest {
 	protected abstract <T> T executeInsideRequest(WhatToDo<T> execution);
 	protected abstract void configureExpectations();
 	
-	
 
 	@Test
 	public void canProvideAllApplicationScopedComponents() {
@@ -164,7 +163,7 @@ public abstract class GenericContainerTest {
 		provider.stop();
 		assertThat(component.calls, is(1));
 		provider = getProvider();
-		provider.start(context); // In order to tearDown ok
+		start(provider);
 	}
 	
 	@Test
@@ -281,6 +280,9 @@ public abstract class GenericContainerTest {
 
 		configureExpectations();
 		provider = getProvider();
+		start(provider);
+	}
+	protected void start(ContainerProvider provider) {
 		provider.start(context);
 	}
 
@@ -436,33 +438,7 @@ public abstract class GenericContainerTest {
 		Provided object = getFromContainer(Provided.class);
 		assertThat(object, is(sameInstance(ComponentFactoryInTheClasspath.PROVIDED)));
 	}
-
-	@Test
-	public void shoudRegisterInterceptorsInInterceptorRegistry() {
-		InterceptorRegistry registry = getFromContainer(InterceptorRegistry.class);
-		assertThat(registry.all(), hasOneCopyOf(InterceptorInTheClasspath.class));
-	}
-
-	@Test
-	public void shoudCallPredestroyExactlyOneTimeForComponentsScannedFromTheClasspath() {
-		CustomComponentWithLifecycleInTheClasspath component = getFromContainer(CustomComponentWithLifecycleInTheClasspath.class);
-		assertThat(component.getCallsToPreDestroy(), is(equalTo(0)));
-		provider.stop();
-		assertThat(component.getCallsToPreDestroy(), is(equalTo(1)));
-
-		resetProvider();
-	}
-
-	@Test
-	public void shoudCallPredestroyExactlyOneTimeForComponentFactoriesScannedFromTheClasspath() {
-		ComponentFactoryInTheClasspath componentFactory = getFromContainer(ComponentFactoryInTheClasspath.class);
-		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(0)));
-		provider.stop();
-		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(1)));
-
-		resetProvider();
-	}
-
+			
 	@Test
 	public void shoudRegisterConvertersInConverters() {
 		executeInsideRequest(new WhatToDo<Converters>() {
@@ -477,11 +453,40 @@ public abstract class GenericContainerTest {
 				});
 			}
 		});
+	}	
+	
+	@Test
+	public void shoudRegisterInterceptorsInInterceptorRegistry() {
+		InterceptorRegistry registry = getFromContainer(InterceptorRegistry.class);
+		assertThat(registry.all(), hasOneCopyOf(InterceptorInTheClasspath.class));
+	}	
+	
+	
+	
+	@Test
+	public void shoudCallPredestroyExactlyOneTimeForComponentsScannedFromTheClasspath() {
+		CustomComponentWithLifecycleInTheClasspath component = getFromContainer(CustomComponentWithLifecycleInTheClasspath.class);
+		assertThat(component.getCallsToPreDestroy(), is(equalTo(0)));
+		provider.stop();
+		assertThat(component.getCallsToPreDestroy(), is(equalTo(1)));
+
+		resetProvider();
 	}
+	
+	@Test
+	public void shoudCallPredestroyExactlyOneTimeForComponentFactoriesScannedFromTheClasspath() {
+		ComponentFactoryInTheClasspath componentFactory = getFromContainer(ComponentFactoryInTheClasspath.class);
+		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(0)));
+		provider.stop();
+		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(1)));
+
+		resetProvider();
+	}
+
 
 	protected void resetProvider() {
 		provider = getProvider();
-		provider.start(context);
+		start(provider);
 	}
 
 	protected String getClassDir() {

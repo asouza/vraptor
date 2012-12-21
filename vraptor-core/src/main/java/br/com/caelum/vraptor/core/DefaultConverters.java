@@ -51,6 +51,7 @@ public class DefaultConverters implements Converters {
         }
     }
     
+	@Deprecated
     public DefaultConverters(){
     	
     }

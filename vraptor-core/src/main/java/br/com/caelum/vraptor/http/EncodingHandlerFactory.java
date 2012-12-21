@@ -46,7 +46,6 @@ public class EncodingHandlerFactory implements ComponentFactory<EncodingHandler>
 	public EncodingHandlerFactory() {
 	}
 
-	@Produces
 	public EncodingHandler getInstance() {
 		return handler;
 	}

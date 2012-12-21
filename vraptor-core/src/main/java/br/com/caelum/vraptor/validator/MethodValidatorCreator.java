@@ -16,7 +16,6 @@
 package br.com.caelum.vraptor.validator;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Produces;
 import javax.validation.Validation;
 
 import org.hibernate.validator.HibernateValidator;
@@ -49,7 +48,6 @@ public class MethodValidatorCreator
         logger.debug("Initializing Method Validator");
     }
 
-    @Produces
     public MethodValidator getInstance() {
         return methodValidator;
     }

@@ -4,7 +4,6 @@
 package br.com.caelum.vraptor.validator;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.validation.MessageInterpolator;
 import javax.validation.ValidatorFactory;
@@ -46,7 +45,6 @@ public class MessageInterpolatorFactory implements ComponentFactory<MessageInter
 		logger.debug("Initializing Bean Validator MessageInterpolator");
 	}
 
-	@Produces
 	public MessageInterpolator getInstance() {
 		return interpolator;
 	}
