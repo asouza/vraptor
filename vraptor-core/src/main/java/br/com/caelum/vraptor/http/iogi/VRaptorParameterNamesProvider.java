@@ -7,6 +7,8 @@ import java.lang.reflect.AccessibleObject;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.http.ParameterNameProvider;
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -19,10 +21,15 @@ import br.com.caelum.vraptor.ioc.Component;
  */
 @Component
 public class VRaptorParameterNamesProvider implements br.com.caelum.iogi.spi.ParameterNamesProvider {
-	private final ParameterNameProvider parameterNameProvider;
+	private ParameterNameProvider parameterNameProvider;
 
+	@Inject
 	public VRaptorParameterNamesProvider(ParameterNameProvider parameterNameProvider) {
 		this.parameterNameProvider = parameterNameProvider;
+	}
+
+	@Deprecated
+	public VRaptorParameterNamesProvider() {
 	}
 
 	public List<String> lookupParameterNames(AccessibleObject methodOrConstructor) {
