@@ -326,6 +326,8 @@ public class BaseComponents {
     };
 
     private static final Set<Class<? extends Deserializer>> DESERIALIZERS = Collections.<Class<? extends Deserializer>>singleton(XMLDeserializer.class);
+    
+    private static Set<String> JAVAEE_INTERFACES = Sets.newHashSet("javax.validation.Validator","javax.validation.ValidatorFactory");    
 
 
     public static Set<Class<? extends Deserializer>> getDeserializers() {
@@ -359,9 +361,7 @@ public class BaseComponents {
 
 	public static Map<Class<?>, Class<?>> getCachedComponents() {
 		return Collections.unmodifiableMap(CACHED_COMPONENTS);
-	}
-	
-	private static Set<String> JAVAEE_INTERFACES = Sets.newHashSet("javax.validation.Validator","javax.validation.ValidatorFactory","javax.validation.MessageInterpolator");
+	}	
 	
 	public static Set<String> getJavaEEInterfaces() {
 		return JAVAEE_INTERFACES;
