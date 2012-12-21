@@ -17,6 +17,8 @@
 
 package br.com.caelum.vraptor.core;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Collections;
@@ -190,6 +192,7 @@ import br.com.caelum.vraptor.view.SessionFlashScope;
 import br.com.caelum.vraptor.view.Status;
 import br.com.caelum.vraptor.view.ValidationViewsFactory;
 
+import com.google.common.collect.Sets;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
 
 /**
@@ -357,14 +360,21 @@ public class BaseComponents {
 	public static Map<Class<?>, Class<?>> getCachedComponents() {
 		return Collections.unmodifiableMap(CACHED_COMPONENTS);
 	}
+	
+	private static Set<String> JAVAEE_INTERFACES = Sets.newHashSet("javax.validation.Validator","javax.validation.ValidatorFactory","javax.validation.MessageInterpolator");
+	
+	public static Set<String> getJavaEEInterfaces() {
+		return JAVAEE_INTERFACES;
+	}
 
     public static Map<Class<?>, Class<?>> getApplicationScoped() {
         if (!isClassPresent("ognl.OgnlRuntime")) {
             APPLICATION_COMPONENTS.put(DependencyProvider.class, VRaptorDependencyProvider.class);
         }
     	
+        
         registerIfClassPresent(APPLICATION_COMPONENTS, "javax.validation.Validation",
-                ValidatorCreator.class, ValidatorFactoryCreator.class, MessageInterpolatorFactory.class);
+	                ValidatorCreator.class, ValidatorFactoryCreator.class, MessageInterpolatorFactory.class);
         
         registerIfClassPresent(APPLICATION_COMPONENTS, "org.hibernate.validator.method.MethodValidator",
                 MethodValidatorCreator.class);
@@ -372,7 +382,7 @@ public class BaseComponents {
     	return Collections.unmodifiableMap(APPLICATION_COMPONENTS);
     }
 
-    public static Map<Class<?>, Class<?>> getRequestScoped() {
+	public static Map<Class<?>, Class<?>> getRequestScoped() {
     	if(isClassPresent("javax.validation.Validation")) {
     		REQUEST_COMPONENTS.put(BeanValidator.class, DefaultBeanValidator.class);
     	} else {
