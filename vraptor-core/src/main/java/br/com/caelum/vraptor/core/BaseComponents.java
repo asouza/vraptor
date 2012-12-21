@@ -192,6 +192,7 @@ import br.com.caelum.vraptor.view.SessionFlashScope;
 import br.com.caelum.vraptor.view.Status;
 import br.com.caelum.vraptor.view.ValidationViewsFactory;
 
+import com.google.common.collect.Sets;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
 
 /**
@@ -359,42 +360,27 @@ public class BaseComponents {
 	public static Map<Class<?>, Class<?>> getCachedComponents() {
 		return Collections.unmodifiableMap(CACHED_COMPONENTS);
 	}
+	
+	private static Set<String> JAVAEE_INTERFACES = Sets.newHashSet("javax.validation.Validator","javax.validation.ValidatorFactory","javax.validation.MessageInterpolator");
+	
+	public static Set<String> getJavaEEInterfaces() {
+		return JAVAEE_INTERFACES;
+	}
 
     public static Map<Class<?>, Class<?>> getApplicationScoped() {
         if (!isClassPresent("ognl.OgnlRuntime")) {
             APPLICATION_COMPONENTS.put(DependencyProvider.class, VRaptorDependencyProvider.class);
         }
     	
-        if(!vraptorEEPresent()){
-	        registerIfClassPresentForJavaEEComponents(APPLICATION_COMPONENTS, "javax.validation.Validation",
+        
+        registerIfClassPresent(APPLICATION_COMPONENTS, "javax.validation.Validation",
 	                ValidatorCreator.class, ValidatorFactoryCreator.class, MessageInterpolatorFactory.class);
-        }
         
         registerIfClassPresent(APPLICATION_COMPONENTS, "org.hibernate.validator.method.MethodValidator",
                 MethodValidatorCreator.class);
         
     	return Collections.unmodifiableMap(APPLICATION_COMPONENTS);
     }
-
-    private static void registerIfClassPresentForJavaEEComponents
-    		(Map<Class<?>, Class<?>> components, String className, Class<?>... types)  {
-    	if(!vraptorEEPresent()){
-    		registerIfClassPresent(components, className, types);
-    	}
-	}
-
-	private static boolean vraptorEEPresent() {
-    	InputStream xml = BaseComponents.class.getResourceAsStream("/vraptor-cdi-ee.xml");
-    	if(xml!=null){
-    		try {
-				xml.close();
-			} catch (IOException e) {
-				logger.error("The vraptor-cdi-ee was not closed");
-			}
-    		return true;
-    	}
-		return false;
-	}
 
 	public static Map<Class<?>, Class<?>> getRequestScoped() {
     	if(isClassPresent("javax.validation.Validation")) {
