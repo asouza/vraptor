@@ -17,6 +17,8 @@
 
 package br.com.caelum.vraptor.core;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Collections;
@@ -363,8 +365,10 @@ public class BaseComponents {
             APPLICATION_COMPONENTS.put(DependencyProvider.class, VRaptorDependencyProvider.class);
         }
     	
-        registerIfClassPresent(APPLICATION_COMPONENTS, "javax.validation.Validation",
-                ValidatorCreator.class, ValidatorFactoryCreator.class, MessageInterpolatorFactory.class);
+        if(!vraptorEEPresent()){
+	        registerIfClassPresentForJavaEEComponents(APPLICATION_COMPONENTS, "javax.validation.Validation",
+	                ValidatorCreator.class, ValidatorFactoryCreator.class, MessageInterpolatorFactory.class);
+        }
         
         registerIfClassPresent(APPLICATION_COMPONENTS, "org.hibernate.validator.method.MethodValidator",
                 MethodValidatorCreator.class);
@@ -372,7 +376,27 @@ public class BaseComponents {
     	return Collections.unmodifiableMap(APPLICATION_COMPONENTS);
     }
 
-    public static Map<Class<?>, Class<?>> getRequestScoped() {
+    private static void registerIfClassPresentForJavaEEComponents
+    		(Map<Class<?>, Class<?>> components, String className, Class<?>... types)  {
+    	if(!vraptorEEPresent()){
+    		registerIfClassPresent(components, className, types);
+    	}
+	}
+
+	private static boolean vraptorEEPresent() {
+    	InputStream xml = BaseComponents.class.getResourceAsStream("/vraptor-cdi-ee.xml");
+    	if(xml!=null){
+    		try {
+				xml.close();
+			} catch (IOException e) {
+				logger.error("The vraptor-cdi-ee was not closed");
+			}
+    		return true;
+    	}
+		return false;
+	}
+
+	public static Map<Class<?>, Class<?>> getRequestScoped() {
     	if(isClassPresent("javax.validation.Validation")) {
     		REQUEST_COMPONENTS.put(BeanValidator.class, DefaultBeanValidator.class);
     	} else {
