@@ -25,6 +25,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.Convert;
 import br.com.caelum.vraptor.Converter;
 import br.com.caelum.vraptor.core.Localization;
@@ -40,11 +42,16 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 public class LocaleBasedDateConverter
     implements Converter<Date> {
 
-    private final Localization localization;
+    private Localization localization;
 
+    @Inject
     public LocaleBasedDateConverter(Localization localization) {
         this.localization = localization;
     }
+
+    @Deprecated
+    public LocaleBasedDateConverter() {
+	}
 
     public Date convert(String value, Class<? extends Date> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
