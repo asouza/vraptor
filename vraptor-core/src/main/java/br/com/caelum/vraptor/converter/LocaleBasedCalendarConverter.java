@@ -27,6 +27,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.inject.Inject;
+
 import br.com.caelum.vraptor.Convert;
 import br.com.caelum.vraptor.Converter;
 import br.com.caelum.vraptor.core.Localization;
@@ -41,11 +43,16 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 @RequestScoped
 public class LocaleBasedCalendarConverter implements Converter<Calendar> {
 
-    private final Localization localization;
+    private Localization localization;
     
+    @Inject
     public LocaleBasedCalendarConverter(Localization localization) {
         this.localization = localization;
     }
+
+    @Deprecated
+    public LocaleBasedCalendarConverter() {
+	}
 
     public Calendar convert(String value, Class<? extends Calendar> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {
