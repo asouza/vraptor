@@ -327,8 +327,6 @@ public class BaseComponents {
 
     private static final Set<Class<? extends Deserializer>> DESERIALIZERS = Collections.<Class<? extends Deserializer>>singleton(XMLDeserializer.class);
     
-    private static Set<String> JAVAEE_INTERFACES = Sets.newHashSet("javax.validation.Validator","javax.validation.ValidatorFactory");    
-
 
     public static Set<Class<? extends Deserializer>> getDeserializers() {
 		return DESERIALIZERS;
@@ -363,10 +361,6 @@ public class BaseComponents {
 		return Collections.unmodifiableMap(CACHED_COMPONENTS);
 	}	
 	
-	public static Set<String> getJavaEEInterfaces() {
-		return JAVAEE_INTERFACES;
-	}
-
     public static Map<Class<?>, Class<?>> getApplicationScoped() {
         if (!isClassPresent("ognl.OgnlRuntime")) {
             APPLICATION_COMPONENTS.put(DependencyProvider.class, VRaptorDependencyProvider.class);
