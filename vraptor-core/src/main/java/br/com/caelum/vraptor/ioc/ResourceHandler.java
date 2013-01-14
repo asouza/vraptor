@@ -53,9 +53,9 @@ public class ResourceHandler implements StereotypeHandler {
 		this.context = context;
 	}
 	
-	@Deprecated
-	public ResourceHandler() {
-	}
+//	@Deprecated
+//	public ResourceHandler() {
+//	}
 
 	@PostConstruct
 	public void configureLinkToHandler() {
