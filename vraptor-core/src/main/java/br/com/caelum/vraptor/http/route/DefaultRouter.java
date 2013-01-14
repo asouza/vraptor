@@ -70,10 +70,10 @@ public class DefaultRouter implements Router {
 		config.config(this);
 	}
     
-    @Deprecated
-    public DefaultRouter() {
-		// TODO Auto-generated constructor stub
-	}
+//    @Deprecated
+//    public DefaultRouter() {
+//		// TODO Auto-generated constructor stub
+//	}
 
 	public RouteBuilder builderFor(String uri) {
 		return new DefaultRouteBuilder(proxifier, finder, converters, nameProvider, evaluator, uri);
