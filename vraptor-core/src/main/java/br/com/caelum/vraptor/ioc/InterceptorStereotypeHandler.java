@@ -42,9 +42,9 @@ public class InterceptorStereotypeHandler implements StereotypeHandler {
 		this.componentRegistry = componentRegistry;
 	}
 
-	@Deprecated
-	public InterceptorStereotypeHandler() {
-	}
+//	@Deprecated
+//	private InterceptorStereotypeHandler() {
+//	}
 
 	public Class<? extends Annotation> stereotype() {
 		return Intercepts.class;
