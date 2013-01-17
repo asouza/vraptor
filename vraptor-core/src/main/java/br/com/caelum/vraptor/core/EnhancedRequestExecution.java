@@ -33,8 +33,8 @@ import br.com.caelum.vraptor.ioc.PrototypeScoped;
 @Default
 public class EnhancedRequestExecution implements RequestExecution {
 
-	private InterceptorRegistry registry;
-	private InterceptorStack stack;
+	private final InterceptorRegistry registry;
+	private final InterceptorStack stack;
 
 	@Inject
 	public EnhancedRequestExecution(InterceptorStack stack, InterceptorRegistry registry) {
@@ -42,10 +42,6 @@ public class EnhancedRequestExecution implements RequestExecution {
 		this.registry = registry;
 	}
 	
-	@Deprecated
-	public EnhancedRequestExecution() {
-	}	
-
 	public void execute() throws VRaptorException {
 		for (Class<? extends Interceptor> interceptor : registry.all()) {
 			stack.add(interceptor);

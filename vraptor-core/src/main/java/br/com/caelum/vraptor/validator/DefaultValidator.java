@@ -50,17 +50,13 @@ public class DefaultValidator extends AbstractValidator {
 		}
 	}
 
-    private Result result;
-
-	private List<Message> errors = new ArrayList<Message>();
-	private ValidationViewsFactory viewsFactory;
-	private BeanValidator beanValidator;
-
-	private Outjector outjector;
-
-	private Proxifier proxifier;
-
-	private Localization localization;
+    private final Result result;
+	private final List<Message> errors = new ArrayList<Message>();
+	private final ValidationViewsFactory viewsFactory;
+	private final BeanValidator beanValidator;
+	private final Outjector outjector;
+	private final Proxifier proxifier;
+	private final Localization localization;
 
 	@Inject
     public DefaultValidator(Result result, ValidationViewsFactory factory, Outjector outjector, Proxifier proxifier, BeanValidator beanValidator, Localization localization) {
@@ -72,10 +68,6 @@ public class DefaultValidator extends AbstractValidator {
 		this.localization = localization;
     }
 	
-	@Deprecated
-	public DefaultValidator() {
-	}
-
     public void checking(Validations validations) {
         addAll(validations.getErrors(new LocalizationSupplier()));
     }

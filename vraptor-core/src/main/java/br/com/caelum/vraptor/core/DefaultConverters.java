@@ -35,9 +35,9 @@ import br.com.caelum.vraptor.ioc.Container;
 @ApplicationScoped
 public class DefaultConverters implements Converters {
 
-    private  LinkedList<Class<? extends Converter<?>>> classes;
-    private  Logger logger = LoggerFactory.getLogger(DefaultConverters.class);
-	private  Container container;
+    private  final LinkedList<Class<? extends Converter<?>>> classes;
+    private  final Logger logger = LoggerFactory.getLogger(DefaultConverters.class);
+	private  final Container container;
 
 	
 	@Inject
@@ -51,11 +51,6 @@ public class DefaultConverters implements Converters {
         }
     }
     
-	@Deprecated
-    public DefaultConverters(){
-    	
-    }
-
     public void register(Class<? extends Converter<?>> converterClass) {
         if (!converterClass.isAnnotationPresent(Convert.class)) {
             throw new VRaptorException("The converter type " + converterClass.getName()

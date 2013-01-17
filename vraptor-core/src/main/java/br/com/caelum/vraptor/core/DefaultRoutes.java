@@ -37,8 +37,8 @@ import br.com.caelum.vraptor.resource.HttpMethod;
 @ApplicationScoped
 public class DefaultRoutes implements Routes{
 
-	private Proxifier proxifier;
-	private Router router;
+	private final Proxifier proxifier;
+	private final Router router;
 
 	@Inject
 	public DefaultRoutes(Router router, Proxifier proxifier) {
@@ -46,11 +46,6 @@ public class DefaultRoutes implements Routes{
 		this.proxifier = proxifier;
 	}
 
-
-	@Deprecated
-	public DefaultRoutes() {
-		// TODO Auto-generated constructor stub
-	}
 	private String uri;
 
 	public <T> T uriFor(final Class<T> type) {

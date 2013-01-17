@@ -37,17 +37,13 @@ public class DeserializesHandler implements StereotypeHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(DeserializesHandler.class);
 
-	private Deserializers deserializers;
+	private final Deserializers deserializers;
 
 	@Inject
 	public DeserializesHandler(Deserializers deserializers) {
 		this.deserializers = deserializers;
 	}
 	
-	@Deprecated
-	public DeserializesHandler() {
-	}
-
 	@SuppressWarnings("unchecked")
 	public void handle(Class<?> type) {
 		if (!Deserializer.class.isAssignableFrom(type)) {

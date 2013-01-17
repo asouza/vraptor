@@ -66,18 +66,13 @@ import com.google.common.base.Predicate;
 @ApplicationScoped
 public class PathAnnotationRoutesParser implements RoutesParser {
 
-	private Router router;
+	private final Router router;
 
 	@Inject
 	public PathAnnotationRoutesParser(Router router) {
 		this.router = router;
 	}
 	
-	@Deprecated
-	public PathAnnotationRoutesParser() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public List<Route> rulesFor(ResourceClass resource) {
 		Class<?> baseType = resource.getType();
 		return registerRulesFor(baseType);

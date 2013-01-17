@@ -43,7 +43,7 @@ public class InterceptorListPriorToExecutionExtractor implements Interceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(InterceptorListPriorToExecutionExtractor.class);
 
-    private InterceptorRegistry registry;
+    private final InterceptorRegistry registry;
 
     @Inject
     public InterceptorListPriorToExecutionExtractor(InterceptorRegistry registry) {
@@ -51,11 +51,6 @@ public class InterceptorListPriorToExecutionExtractor implements Interceptor {
         logger.warn("This class is deprecated. If you extend a request execution, consider using @Intercepts(after=..., before=...) instead.");
     }
     
-    @Deprecated
-    public InterceptorListPriorToExecutionExtractor() {
-		// TODO Auto-generated constructor stub
-	}
-
     public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
     	for (Class<? extends Interceptor> type : Lists.reverse(registry.all())) {
 			stack.addAsNext(type);

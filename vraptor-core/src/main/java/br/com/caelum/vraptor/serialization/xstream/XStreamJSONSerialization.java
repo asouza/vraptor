@@ -36,10 +36,10 @@ import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
 @Component
 public class XStreamJSONSerialization implements JSONSerialization {
 
-    protected HttpServletResponse response;
-    protected TypeNameExtractor extractor;
-    protected ProxyInitializer initializer;
-    protected XStreamBuilder builder;
+    protected final HttpServletResponse response;
+    protected final TypeNameExtractor extractor;
+    protected final ProxyInitializer initializer;
+    protected final XStreamBuilder builder;
 
     @Inject
     public XStreamJSONSerialization(HttpServletResponse response, TypeNameExtractor extractor, ProxyInitializer initializer, XStreamBuilder builder) {
@@ -49,11 +49,6 @@ public class XStreamJSONSerialization implements JSONSerialization {
         this.builder = builder;
     }
     
-    
-    @Deprecated
-    public XStreamJSONSerialization() {
-    }    
-
     public boolean accepts(String format) {
         return "json".equals(format);
     }

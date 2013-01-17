@@ -40,18 +40,14 @@ public class DefaultInterceptorStack implements InterceptorStack {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultInterceptorStack.class);
 
-    private LinkedList<InterceptorHandler> interceptors = new LinkedList<InterceptorHandler>();
-    private InterceptorHandlerFactory handlerFactory;
+    private final LinkedList<InterceptorHandler> interceptors = new LinkedList<InterceptorHandler>();
+    private final InterceptorHandlerFactory handlerFactory;
 
     @Inject
     public DefaultInterceptorStack(InterceptorHandlerFactory handlerFactory) {
         this.handlerFactory = handlerFactory;
     }
     
-    @Deprecated
-    public DefaultInterceptorStack() {
-    }
-
     public void next(ResourceMethod method, Object resourceInstance) throws InterceptionException {
         if (interceptors.isEmpty()) {
         	logger.debug("All registered interceptors have been called. End of VRaptor Request Execution.");

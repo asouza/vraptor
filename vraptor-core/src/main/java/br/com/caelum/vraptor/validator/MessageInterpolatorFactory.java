@@ -27,7 +27,7 @@ public class MessageInterpolatorFactory implements ComponentFactory<MessageInter
 
 	private static final Logger logger = LoggerFactory.getLogger(MessageInterpolatorFactory.class);
 
-	private ValidatorFactory factory;
+	private final ValidatorFactory factory;
 	private MessageInterpolator interpolator;
 
 	@Inject
@@ -35,10 +35,6 @@ public class MessageInterpolatorFactory implements ComponentFactory<MessageInter
 		this.factory = factory;
 	}
 	
-	@Deprecated
-	public MessageInterpolatorFactory() {
-	}
-
 	@PostConstruct
 	public void createInterpolator() {
 		interpolator = factory.getMessageInterpolator();

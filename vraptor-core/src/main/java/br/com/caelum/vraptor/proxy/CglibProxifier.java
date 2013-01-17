@@ -62,18 +62,13 @@ public class CglibProxifier
         }
     };
 
-    private InstanceCreator instanceCreator;
+    private final InstanceCreator instanceCreator;
 
     @Inject
     public CglibProxifier(InstanceCreator instanceCreator) {
         this.instanceCreator = instanceCreator;
     }
     
-    @Deprecated
-    public CglibProxifier(){
-    	
-    }
-
     public <T> T proxify(Class<T> type, MethodInvocation<? super T> handler) {
         Class<?> proxyClass = enhanceTypeWithCGLib(type, handler).createClass();
         Factory proxyInstance = (Factory) instanceCreator.instanceFor(proxyClass);

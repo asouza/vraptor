@@ -31,8 +31,8 @@ import br.com.caelum.vraptor.restfulie.resource.RestfulEntity;
 @Component
 public class DefaultRestHeadersHandler implements RestHeadersHandler {
 
-	private HttpServletResponse response;
-	private RestDefaults defaults;
+	private final HttpServletResponse response;
+	private final RestDefaults defaults;
 
 	@Inject
 	public DefaultRestHeadersHandler(HttpServletResponse response, RestDefaults defaults) {
@@ -40,10 +40,6 @@ public class DefaultRestHeadersHandler implements RestHeadersHandler {
 		this.response = response;
 	}
 	
-	@Deprecated
-	public DefaultRestHeadersHandler() {
-	}
-
 	public void handle(HypermediaResource resource) {
 		// TODO implement link headers
 		if(Cacheable.class.isAssignableFrom(resource.getClass())) {

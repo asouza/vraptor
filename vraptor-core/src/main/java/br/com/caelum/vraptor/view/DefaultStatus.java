@@ -45,11 +45,11 @@ import br.com.caelum.vraptor.resource.HttpMethod;
 @Component
 public class DefaultStatus implements Status {
 
-	private HttpServletResponse response;
-	private Result result;
-	private Configuration config;
-	private Router router;
-	private Proxifier proxifier;
+	private final HttpServletResponse response;
+	private final Result result;
+	private final Configuration config;
+	private final Router router;
+	private final Proxifier proxifier;
 
 	@Inject
 	public DefaultStatus(HttpServletResponse response, Result result, Configuration config,
@@ -61,10 +61,6 @@ public class DefaultStatus implements Status {
 		this.router = router;
 	}
 	
-	@Deprecated
-	public DefaultStatus() {
-	}
-
 	public void notFound() {
 		sendError(HttpServletResponse.SC_NOT_FOUND);
 	}

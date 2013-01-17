@@ -10,17 +10,13 @@ import br.com.caelum.vraptor.ioc.NeedsCustomInstantiation;
 
 @Component
 public class DependentOnSomethingFromComponentFactory {
-	private NeedsCustomInstantiation dependency;
+	private final NeedsCustomInstantiation dependency;
 
 	@Inject
 	public DependentOnSomethingFromComponentFactory(NeedsCustomInstantiation dependency) {
 		this.dependency = dependency;
 	}
 	
-	@Deprecated
-	public DependentOnSomethingFromComponentFactory() {
-	}
-
 	public NeedsCustomInstantiation getDependency() {
 		return dependency;
 	}

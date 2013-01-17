@@ -34,15 +34,11 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 @RequestScoped
 public class ApplicationConfiguration implements Configuration {
 
-	HttpServletRequest request;
+	private final HttpServletRequest request;
 
 	@Inject
 	public ApplicationConfiguration(HttpServletRequest request) {
 		this.request = request;
-	}
-
-	@Deprecated
-	public ApplicationConfiguration() {
 	}
 
 	/**

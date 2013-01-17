@@ -44,7 +44,7 @@ public class ValidatorCreator implements ComponentFactory<Validator> {
 
     private static final Logger logger = LoggerFactory.getLogger(ValidatorCreator.class);
 
-	private ValidatorFactory factory;
+	private final ValidatorFactory factory;
 
 	private Validator validator;
 
@@ -53,10 +53,6 @@ public class ValidatorCreator implements ComponentFactory<Validator> {
         this.factory = factory;
     }
 	
-	@Deprecated
-	public ValidatorCreator() {
-	}
-
     @PostConstruct
     public void createValidator() {
     	this.validator = factory.getValidator();

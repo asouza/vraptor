@@ -34,7 +34,7 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
 @ApplicationScoped
 public class EncodingHandlerFactory implements ComponentFactory<EncodingHandler> {
 
-	private EncodingHandler handler;
+	private final EncodingHandler handler;
 
 	@Inject
 	public EncodingHandlerFactory(ServletContext context) {
@@ -42,10 +42,6 @@ public class EncodingHandlerFactory implements ComponentFactory<EncodingHandler>
 		this.handler = (encoding == null) ? new NullEncodingHandler() : new WebXmlEncodingHandler(encoding);
 	}
 	
-	@Deprecated
-	public EncodingHandlerFactory() {
-	}
-
 	public EncodingHandler getInstance() {
 		return handler;
 	}

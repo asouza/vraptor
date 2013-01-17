@@ -58,12 +58,12 @@ public class MethodValidatorInterceptor
 
     private static final Logger logger = LoggerFactory.getLogger(MethodValidatorInterceptor.class);
 
-    private MethodValidator methodValidator;
-    private ParameterNameProvider provider;
-    private Localization localization;
-    private MessageInterpolator interpolator;
-    private MethodInfo methodInfo;
-    private Validator validator;
+    private final MethodValidator methodValidator;
+    private final ParameterNameProvider provider;
+    private final Localization localization;
+    private final MessageInterpolator interpolator;
+    private final MethodInfo methodInfo;
+    private final Validator validator;
 
     @Inject
     public MethodValidatorInterceptor(ParameterNameProvider provider, Localization localization,
@@ -77,10 +77,6 @@ public class MethodValidatorInterceptor
         this.methodValidator = methodValidator;
     }
     
-    @Deprecated
-    public MethodValidatorInterceptor() {
-    }
-
     public boolean accepts(ResourceMethod method) {
         return hasConstraint(method.getMethod());
     }

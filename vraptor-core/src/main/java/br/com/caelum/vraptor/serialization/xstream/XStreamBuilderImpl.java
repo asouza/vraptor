@@ -45,8 +45,8 @@ import com.thoughtworks.xstream.io.json.JsonWriter;
 @Component
 public class XStreamBuilderImpl implements XStreamBuilder {
 
-	private XStreamConverters converters;
-	private TypeNameExtractor extractor;
+	private final XStreamConverters converters;
+	private final TypeNameExtractor extractor;
 	
 	private boolean indented;
 	private boolean withoutRoot;
@@ -57,10 +57,6 @@ public class XStreamBuilderImpl implements XStreamBuilder {
 		this.extractor = extractor;
 	}
 	
-	@Deprecated
-	public XStreamBuilderImpl() {
-	}
-
 	public static XStreamBuilder cleanInstance(Converter...converters) {
         return new XStreamBuilderImpl(
                 new XStreamConverters(Arrays.asList(converters), Collections.<SingleValueConverter>emptyList()),

@@ -34,17 +34,13 @@ public class ConverterHandler implements StereotypeHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(ConverterHandler.class);
 
-	private Converters converters;
+	private final Converters converters;
 
 	@Inject
 	public ConverterHandler(Converters converters) {
 		this.converters = converters;
 	}
 	
-	@Deprecated
-	public ConverterHandler() {
-	}
-
 	public void handle(Class<?> annotatedType) {
 		if (!(Converter.class.isAssignableFrom(annotatedType))) {
 			throw new VRaptorException("converter does not implement Converter");

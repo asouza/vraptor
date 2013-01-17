@@ -38,7 +38,7 @@ import com.google.common.collect.MapMaker;
 @Default
 public class DefaultInterceptorHandlerFactory implements InterceptorHandlerFactory {
 
-	private Container container;
+	private final Container container;
 
 	private ConcurrentMap<Class<? extends Interceptor>, InterceptorHandler> cachedHandlers =
 		new MapMaker().makeMap();
@@ -48,10 +48,6 @@ public class DefaultInterceptorHandlerFactory implements InterceptorHandlerFacto
 		this.container = container;
 	}
 	
-	@Deprecated
-	public DefaultInterceptorHandlerFactory() {
-	}
-
 	public InterceptorHandler handlerFor(Class<? extends Interceptor> type) {
 		if (type.isAnnotationPresent(Lazy.class)) {
 			InterceptorHandler handler = cachedHandlers.get(type);

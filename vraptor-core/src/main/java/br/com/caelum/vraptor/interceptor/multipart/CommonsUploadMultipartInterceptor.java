@@ -68,11 +68,11 @@ public class CommonsUploadMultipartInterceptor
 
     private static final Logger logger = LoggerFactory.getLogger(CommonsUploadMultipartInterceptor.class);
 
-    private HttpServletRequest request;
-    private MutableRequest parameters;
-    private MultipartConfig config;
-    private Validator validator;
-    private ServletFileUploadCreator fileUploadCreator;
+    private final HttpServletRequest request;
+    private final MutableRequest parameters;
+    private final MultipartConfig config;
+    private final Validator validator;
+    private final ServletFileUploadCreator fileUploadCreator;
 
     final Multiset<String> indexes = HashMultiset.create();
 
@@ -86,10 +86,6 @@ public class CommonsUploadMultipartInterceptor
         this.fileUploadCreator = fileUploadCreator;
     }
     
-    @Deprecated
-    public CommonsUploadMultipartInterceptor() {
-    }
-
     /**
      * Will intercept the request if apache file upload says that this request is multipart
      */

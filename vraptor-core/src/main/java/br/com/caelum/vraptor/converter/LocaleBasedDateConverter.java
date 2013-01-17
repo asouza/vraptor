@@ -42,16 +42,12 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 public class LocaleBasedDateConverter
     implements Converter<Date> {
 
-    private Localization localization;
+    private final Localization localization;
 
     @Inject
     public LocaleBasedDateConverter(Localization localization) {
         this.localization = localization;
     }
-
-    @Deprecated
-    public LocaleBasedDateConverter() {
-	}
 
     public Date convert(String value, Class<? extends Date> type, ResourceBundle bundle) {
         if (isNullOrEmpty(value)) {

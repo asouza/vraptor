@@ -45,18 +45,13 @@ public class DefaultStaticContentHandler implements StaticContentHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultStaticContentHandler.class);
 
-	private ServletContext context;
+	private final ServletContext context;
 
 	@Inject
 	public DefaultStaticContentHandler(ServletContext context) {
 		this.context = context;
 	}
 	
-	@Deprecated
-	public DefaultStaticContentHandler() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public boolean requestingStaticFile(HttpServletRequest request) throws MalformedURLException {
 		URL resourceUrl = context.getResource(uriRelativeToContextRoot(request));
 		return resourceUrl != null && isAFile(resourceUrl);

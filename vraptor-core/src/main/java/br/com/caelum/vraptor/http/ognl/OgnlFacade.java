@@ -54,10 +54,10 @@ public class OgnlFacade {
 
 	private static final Logger logger = LoggerFactory.getLogger(OgnlFacade.class);
 
-	private Proxifier proxifier;
-	private Converters converters;
-	private EmptyElementsRemoval removal;
-	private Map<Object, OgnlContext> contexts = Maps.newHashMap();
+	private final Proxifier proxifier;
+	private final Converters converters;
+	private final EmptyElementsRemoval removal;
+	private final Map<Object, OgnlContext> contexts = Maps.newHashMap();
 
 	@Inject
 	public OgnlFacade(Converters converters, EmptyElementsRemoval removal, Proxifier proxifier) {
@@ -69,10 +69,6 @@ public class OgnlFacade {
 		OgnlRuntime.setPropertyAccessor(Object[].class, new ArrayAccessor());
 	}
 	
-	@Deprecated
-	public OgnlFacade() {
-	}
-
 	public void startContext(String name, Type type, Object root, ResourceBundle bundle) {
 
 		OgnlContext context = createOgnlContext(root);

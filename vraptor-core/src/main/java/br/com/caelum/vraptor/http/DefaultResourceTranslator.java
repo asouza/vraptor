@@ -40,15 +40,11 @@ public class DefaultResourceTranslator implements UrlToResourceTranslator {
 
 	private final Logger logger = LoggerFactory.getLogger(DefaultResourceTranslator.class);
 
-	private Router router;
+	private final Router router;
 
 	@Inject
 	public DefaultResourceTranslator(Router router) {
 		this.router = router;
-	}
-
-	@Deprecated
-	public DefaultResourceTranslator() {
 	}
 
 	public ResourceMethod translate(RequestInfo info) {

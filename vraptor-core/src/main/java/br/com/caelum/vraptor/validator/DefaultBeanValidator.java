@@ -47,11 +47,11 @@ public class DefaultBeanValidator
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultBeanValidator.class);
 
-    private Localization localization;
+    private final Localization localization;
 
-    private Validator validator;
+    private final Validator validator;
 
-    private MessageInterpolator interpolator;
+    private final MessageInterpolator interpolator;
 
     @Inject
     public DefaultBeanValidator(Localization localization, Validator validator, MessageInterpolator interpolator) {
@@ -60,10 +60,6 @@ public class DefaultBeanValidator
         this.interpolator = interpolator;
     }
     
-    @Deprecated
-    public DefaultBeanValidator() {
-    }
-
     public List<Message> validate(Object bean) {
         if (bean == null) {
             logger.warn("skiping validation, input bean is null.");

@@ -50,16 +50,12 @@ public class JstlLocalization
 
     private static final String DEFAULT_BUNDLE_NAME = "messages";
 
-    private RequestInfo request;
+    private final RequestInfo request;
     private ResourceBundle bundle;
 
     @Inject
     public JstlLocalization(RequestInfo request) {
         this.request = request;
-    }
-
-    @Deprecated
-    public JstlLocalization() {
     }
 
     public ResourceBundle getBundle() {

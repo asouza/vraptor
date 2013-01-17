@@ -36,10 +36,10 @@ import com.thoughtworks.xstream.XStream;
 @Component
 public class XStreamXMLSerialization implements XMLSerialization {
 
-	private HttpServletResponse response;
-	private TypeNameExtractor extractor;
-	private ProxyInitializer initializer;
-	private XStreamBuilder builder;
+	private final HttpServletResponse response;
+	private final TypeNameExtractor extractor;
+	private final ProxyInitializer initializer;
+	private final XStreamBuilder builder;
 	
 	@Inject
 	public XStreamXMLSerialization(HttpServletResponse response, TypeNameExtractor extractor, ProxyInitializer initializer, XStreamBuilder builder) {
@@ -47,10 +47,6 @@ public class XStreamXMLSerialization implements XMLSerialization {
 		this.extractor = extractor;
 		this.initializer = initializer;
 		this.builder = builder;
-	}
-
-	@Deprecated
-	public XStreamXMLSerialization() {
 	}
 
 	public boolean accepts(String format) {

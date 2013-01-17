@@ -40,12 +40,12 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 @Named("result")
 public class DefaultResult extends AbstractResult {
 
-    private HttpServletRequest request;
-    private Container container;
-    private Map<String, Object> includedAttributes;
+    private final HttpServletRequest request;
+    private final Container container;
+    private final Map<String, Object> includedAttributes;
     private boolean responseCommitted = false;
-    private ExceptionMapper exceptions;
-	private TypeNameExtractor extractor;
+    private final ExceptionMapper exceptions;
+	private final TypeNameExtractor extractor;
 
 	@Inject
     public DefaultResult(HttpServletRequest request, Container container, ExceptionMapper exceptions, TypeNameExtractor extractor) {
@@ -56,10 +56,6 @@ public class DefaultResult extends AbstractResult {
         this.exceptions = exceptions;
     }
 	
-	@Deprecated
-	public DefaultResult() {
-	}
-
     public <T extends View> T use(Class<T> view) {
         this.responseCommitted = true;
         return container.instanceFor(view);

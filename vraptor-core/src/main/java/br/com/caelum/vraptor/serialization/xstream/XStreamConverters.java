@@ -41,8 +41,8 @@ import com.thoughtworks.xstream.converters.SingleValueConverter;
 @Component
 public class XStreamConverters {
 
-	private List<Converter> converters;
-	private List<SingleValueConverter> singleValueConverters;
+	private final List<Converter> converters;
+	private final List<SingleValueConverter> singleValueConverters;
 	
 	private static final Logger logger = LoggerFactory.getLogger(XStreamConverters.class);
 
@@ -66,10 +66,6 @@ public class XStreamConverters {
 	}
 	
     
-    @Deprecated
-    public XStreamConverters()
-    {
-    }
 	
 	/**
 	 * Method used to register all the XStream converters scanned to a XStream instance

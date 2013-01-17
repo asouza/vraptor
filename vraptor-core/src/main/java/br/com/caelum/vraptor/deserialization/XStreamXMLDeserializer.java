@@ -38,8 +38,8 @@ import com.thoughtworks.xstream.XStream;
 @Component
 public class XStreamXMLDeserializer implements XMLDeserializer {
 
-	private ParameterNameProvider provider;
-	private XStreamBuilder builder;
+	private final ParameterNameProvider provider;
+	private final XStreamBuilder builder;
 
 	@Inject
 	public XStreamXMLDeserializer(ParameterNameProvider provider, XStreamBuilder builder) {
@@ -47,10 +47,6 @@ public class XStreamXMLDeserializer implements XMLDeserializer {
 		this.builder = builder;
 	}
 	
-	@Deprecated
-	public XStreamXMLDeserializer() {
-	}
-
 	public Object[] deserialize(InputStream inputStream, ResourceMethod method) {
 		Method javaMethod = method.getMethod();
 		Class<?>[] types = javaMethod.getParameterTypes();

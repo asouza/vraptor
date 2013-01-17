@@ -52,9 +52,9 @@ public class DownloadInterceptor implements Interceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(DownloadInterceptor.class);
 
-	private HttpServletResponse response;
-	private MethodInfo info;
-	private Result result;
+	private final HttpServletResponse response;
+	private final MethodInfo info;
+	private final Result result;
 
 	@Inject
 	public DownloadInterceptor(HttpServletResponse response, MethodInfo info, Result result) {
@@ -63,10 +63,6 @@ public class DownloadInterceptor implements Interceptor {
 		this.result = result;
 	}
 	
-	@Deprecated
-	public DownloadInterceptor() {
-	}
-
 	public boolean accepts(ResourceMethod method) {
 		Class<?> type = method.getMethod().getReturnType();
 		return InputStream.class.isAssignableFrom(type) || type == File.class || Download.class.isAssignableFrom(type)
