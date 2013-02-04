@@ -154,6 +154,7 @@ import br.com.caelum.vraptor.serialization.NullProxyInitializer;
 import br.com.caelum.vraptor.serialization.ProxyInitializer;
 import br.com.caelum.vraptor.serialization.RepresentationResult;
 import br.com.caelum.vraptor.serialization.XMLSerialization;
+import br.com.caelum.vraptor.serialization.xstream.NullConverter;
 import br.com.caelum.vraptor.serialization.xstream.XStreamBuilder;
 import br.com.caelum.vraptor.serialization.xstream.XStreamBuilderImpl;
 import br.com.caelum.vraptor.serialization.xstream.XStreamConverters;
@@ -229,7 +230,7 @@ public class BaseComponents {
             RestDefaults.class,				DefaultRestDefaults.class,
             Evaluator.class,				JavaEvaluator.class,
             StaticContentHandler.class,		DefaultStaticContentHandler.class,
-            SingleValueConverter.class,     XStreamConverters.NullConverter.class,
+            SingleValueConverter.class,     NullConverter.class,
             ProxyInitializer.class,			getProxyInitializerImpl()
     );
 

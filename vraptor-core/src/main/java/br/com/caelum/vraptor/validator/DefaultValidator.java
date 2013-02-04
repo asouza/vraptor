@@ -44,12 +44,6 @@ import com.google.common.base.Supplier;
 @RequestScoped
 public class DefaultValidator extends AbstractValidator {
 
-    private final class LocalizationSupplier implements Supplier<ResourceBundle> {
-		public ResourceBundle get() {
-			return localization.getBundle();
-		}
-	}
-
     private final Result result;
 	private final List<Message> errors = new ArrayList<Message>();
 	private final ValidationViewsFactory viewsFactory;
@@ -69,7 +63,7 @@ public class DefaultValidator extends AbstractValidator {
     }
 	
     public void checking(Validations validations) {
-        addAll(validations.getErrors(new LocalizationSupplier()));
+        addAll(validations.getErrors(new LocalizationSupplier(localization)));
     }
 
     public void validate(Object object) {
@@ -93,7 +87,7 @@ public class DefaultValidator extends AbstractValidator {
 
     public void add(Message message) {
     	if (message instanceof I18nMessage && !((I18nMessage) message).hasBundle()) {
-    		((I18nMessage) message).setLazyBundle(new LocalizationSupplier());
+    		((I18nMessage) message).setLazyBundle(new LocalizationSupplier(localization));
     	}
     	errors.add(message);
     }
@@ -106,3 +100,17 @@ public class DefaultValidator extends AbstractValidator {
 		return unmodifiableList(errors);
 	}
 }
+
+class LocalizationSupplier implements Supplier<ResourceBundle> {
+	
+	private final Localization localization;
+
+	public LocalizationSupplier(Localization localization) {
+		this.localization = localization;
+	}
+
+	public ResourceBundle get() {
+		return localization.getBundle();
+	}
+}
+

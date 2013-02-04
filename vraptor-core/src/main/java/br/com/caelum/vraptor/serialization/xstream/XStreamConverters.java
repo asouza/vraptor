@@ -23,7 +23,6 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 
 import com.google.common.base.Objects;
@@ -45,18 +44,6 @@ public class XStreamConverters {
 	private final List<SingleValueConverter> singleValueConverters;
 	
 	private static final Logger logger = LoggerFactory.getLogger(XStreamConverters.class);
-
-    /**
-     * for DI purposes
-     */
-    @Component @ApplicationScoped
-	public static class NullConverter implements SingleValueConverter {
-        public String toString(Object o) {return null;}
-
-        public Object fromString(String s) {return null;}
-
-        public boolean canConvert(Class aClass) {return false;}
-    }
 
     @Inject
 	public XStreamConverters(List<Converter> converters, List<SingleValueConverter> singleValueConverters)

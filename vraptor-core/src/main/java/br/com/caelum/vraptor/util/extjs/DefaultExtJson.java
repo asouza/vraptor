@@ -43,6 +43,9 @@ public class DefaultExtJson implements ExtJSJson {
     private XStreamSerializer serializer;
     private XStream xstream;
     private ExtJSWrapper wrapper;
+    
+    public DefaultExtJson() {
+	}
 
     public DefaultExtJson(HttpServletResponse response, TypeNameExtractor extractor, ProxyInitializer initializer)
         throws IOException {
