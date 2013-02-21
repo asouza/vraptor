@@ -45,12 +45,11 @@ public class DefaultPageResult implements PageResult {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPageResult.class);
 
-	private MutableRequest request;
-	private HttpServletResponse response;
-	private PathResolver resolver;
-	private Proxifier proxifier;
-
-	private MethodInfo requestInfo;
+	private final MutableRequest request;
+	private final HttpServletResponse response;
+	private final PathResolver resolver;
+	private final Proxifier proxifier;
+	private final MethodInfo requestInfo;
 
 	@Inject
 	public DefaultPageResult(MutableRequest req, HttpServletResponse res, MethodInfo requestInfo,
@@ -62,10 +61,6 @@ public class DefaultPageResult implements PageResult {
 		this.resolver = resolver;
 	}
 	
-	@Deprecated
-	public DefaultPageResult() {
-	}
-
 	public void defaultView() {
 		try {
 			String to = resolver.pathFor(requestInfo.getResourceMethod());

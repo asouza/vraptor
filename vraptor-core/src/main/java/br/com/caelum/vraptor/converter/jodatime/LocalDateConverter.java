@@ -40,17 +40,13 @@ import br.com.caelum.vraptor.core.Localization;
 @Convert(LocalDate.class)
 public class LocalDateConverter implements Converter<LocalDate> {
 
-    private Localization localization;
+    private final Localization localization;
 
     @Inject
 	public LocalDateConverter(Localization localization) {
         this.localization = localization;
     }
     
-    @Deprecated
-    public LocalDateConverter() {
-    }
-
     public LocalDate convert(String value, Class<? extends LocalDate> type, ResourceBundle bundle) {
         try {
             DateTime out = new LocaleBasedJodaTimeConverter(localization).convert(value, shortDate());

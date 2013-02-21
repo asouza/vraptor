@@ -51,16 +51,16 @@ import br.com.caelum.vraptor.view.FlashScope;
 @Intercepts(after=ResourceLookupInterceptor.class)
 @Lazy
 public class ParametersInstantiatorInterceptor implements Interceptor {
-    private ParametersProvider provider;
-    private ParameterNameProvider parameterNameProvider;
-    private MethodInfo parameters;
+    private final ParametersProvider provider;
+    private final ParameterNameProvider parameterNameProvider;
+    private final MethodInfo parameters;
 
     private static final Logger logger = LoggerFactory.getLogger(ParametersInstantiatorInterceptor.class);
-    private Validator validator;
-    private Localization localization;
-	private List<Message> errors = new ArrayList<Message>();
-	private MutableRequest request;
-	private FlashScope flash;
+    private final Validator validator;
+    private final Localization localization;
+	private final List<Message> errors = new ArrayList<Message>();
+	private final MutableRequest request;
+	private final FlashScope flash;
 
 	@Inject
     public ParametersInstantiatorInterceptor(ParametersProvider provider, ParameterNameProvider parameterNameProvider, MethodInfo parameters,
@@ -74,10 +74,6 @@ public class ParametersInstantiatorInterceptor implements Interceptor {
 		this.flash = flash;
     }
 	
-	@Deprecated
-	public ParametersInstantiatorInterceptor() {
-	}
-
     public boolean accepts(ResourceMethod method) {
         return method.getMethod().getParameterTypes().length > 0;
     }

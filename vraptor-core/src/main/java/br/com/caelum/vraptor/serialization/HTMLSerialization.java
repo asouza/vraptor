@@ -29,8 +29,8 @@ import br.com.caelum.vraptor.interceptor.TypeNameExtractor;
  */
 public class HTMLSerialization implements Serialization {
 
-	private Result result;
-	private TypeNameExtractor extractor;
+	private final Result result;
+	private final TypeNameExtractor extractor;
 
 	@Inject
 	public HTMLSerialization(Result result, TypeNameExtractor extractor) {
@@ -38,10 +38,6 @@ public class HTMLSerialization implements Serialization {
 		this.extractor = extractor;
 	}
 	
-	@Deprecated
-	public HTMLSerialization() {
-	}
-
 	public boolean accepts(String format) {
 		return "html".equals(format);
 	}

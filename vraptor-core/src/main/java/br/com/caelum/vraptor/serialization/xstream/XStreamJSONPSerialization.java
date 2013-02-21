@@ -41,10 +41,10 @@ import br.com.caelum.vraptor.view.ResultException;
  */
 public class XStreamJSONPSerialization implements JSONPSerialization {
 
-	private HttpServletResponse response;
-	private TypeNameExtractor extractor;
-	private ProxyInitializer initializer;
-	private XStreamBuilder builder;
+	private final HttpServletResponse response;
+	private final TypeNameExtractor extractor;
+	private final ProxyInitializer initializer;
+	private final XStreamBuilder builder;
 
 	@Inject
 	public XStreamJSONPSerialization(HttpServletResponse response, TypeNameExtractor extractor, ProxyInitializer initializer, XStreamBuilder builder) {
@@ -54,10 +54,6 @@ public class XStreamJSONPSerialization implements JSONPSerialization {
 		this.builder = builder;
 	}
 	
-	@Deprecated
-	public XStreamJSONPSerialization() {
-	}
-
 	public JSONSerialization withCallback(final String callbackName) {
 		return new XStreamJSONSerialization(response, extractor, initializer, builder) {
 			@Override

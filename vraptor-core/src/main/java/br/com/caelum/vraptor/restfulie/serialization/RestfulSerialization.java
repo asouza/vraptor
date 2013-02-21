@@ -40,8 +40,8 @@ import com.thoughtworks.xstream.converters.reflection.ReflectionConverter;
 @RequestScoped
 public class RestfulSerialization extends XStreamXMLSerialization {
 
-	private Restfulie restfulie;
-	private Configuration config;
+	private final Restfulie restfulie;
+	private final Configuration config;
 
 	@Inject
 	public RestfulSerialization(HttpServletResponse response, TypeNameExtractor extractor, Restfulie restfulie, Configuration config, ProxyInitializer initializer, XStreamBuilder builder) {
@@ -50,11 +50,6 @@ public class RestfulSerialization extends XStreamXMLSerialization {
 		this.config = config;
 	}
 	
-	@Deprecated
-	public RestfulSerialization() {
-		super(null,null,null,null);
-	}
-
 	/**
 	 * You can override this method for configuring XStream before serialization.
 	 * It configures the xstream instance with a link converter for all StateResource implementations.

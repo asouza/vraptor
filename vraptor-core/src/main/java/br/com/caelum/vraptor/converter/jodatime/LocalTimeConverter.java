@@ -39,17 +39,13 @@ import static org.joda.time.format.DateTimeFormat.shortTime;
 @Convert(LocalTime.class)
 public class LocalTimeConverter implements Converter<LocalTime> {
 	
-    private Localization localization;
+    private final Localization localization;
 
     @Inject
 	public LocalTimeConverter(Localization localization) {
         this.localization = localization;
     }
     
-    @Deprecated
-    public LocalTimeConverter() {
-    }
-
     public LocalTime convert(String value, Class<? extends LocalTime> type, ResourceBundle bundle) {
         try {
             DateTime out = new LocaleBasedJodaTimeConverter(localization).convert(value, shortTime());

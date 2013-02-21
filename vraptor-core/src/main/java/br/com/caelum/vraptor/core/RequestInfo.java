@@ -31,13 +31,10 @@ import br.com.caelum.vraptor.http.MutableResponse;
  * @author Guilherme Silveira
  */
 public class RequestInfo {
-	private ServletContext servletContext;
-
-	private MutableRequest request;
-
-	private MutableResponse response;
-
-	private FilterChain chain;
+	private final ServletContext servletContext;
+	private final MutableRequest request;
+	private final MutableResponse response;
+	private final FilterChain chain;
 	
     public static final String INCLUDE_REQUEST_URI = "javax.servlet.include.request_uri";
 
@@ -49,10 +46,6 @@ public class RequestInfo {
 		this.response = response;
 	}
     
-    @Deprecated
-    public RequestInfo() {
-    }
-
 	public FilterChain getChain() {
 		return chain;
 	}

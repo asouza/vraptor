@@ -44,8 +44,8 @@ import br.com.caelum.vraptor.validator.ValidationException;
 @Intercepts(after=ParametersInstantiatorInterceptor.class, before={})
 public class ExecuteMethodInterceptor implements Interceptor {
 
-	private MethodInfo info;
-	private Validator validator;
+	private final MethodInfo info;
+	private final Validator validator;
 	private final static Logger log = LoggerFactory.getLogger(ExecuteMethodInterceptor.class);
 
 	@Inject
@@ -54,10 +54,6 @@ public class ExecuteMethodInterceptor implements Interceptor {
 		this.validator = validator;
 	}
 	
-	@Deprecated
-	public ExecuteMethodInterceptor() {
-	}
-
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance)
 			throws InterceptionException {
 		try {

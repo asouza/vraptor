@@ -53,16 +53,16 @@ public class DefaultLogicResult implements LogicResult {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultLogicResult.class);
 
-	private Proxifier proxifier;
-	private Router router;
-	private MutableRequest request;
-	private HttpServletResponse response;
-	private Container container;
-	private PathResolver resolver;
-	private TypeNameExtractor extractor;
+	private final Proxifier proxifier;
+	private final Router router;
+	private final MutableRequest request;
+	private final HttpServletResponse response;
+	private final Container container;
+	private final PathResolver resolver;
+	private final TypeNameExtractor extractor;
 
-	private FlashScope flash;
-	private MethodInfo methodInfo;
+	private final FlashScope flash;
+	private final MethodInfo methodInfo;
 
 	@Inject
 	public DefaultLogicResult(Proxifier proxifier, Router router, MutableRequest request, HttpServletResponse response,
@@ -78,10 +78,6 @@ public class DefaultLogicResult implements LogicResult {
 		this.methodInfo = methodInfo;
 	}
 	
-	@Deprecated
-	public DefaultLogicResult() {
-	}
-
 	/**
 	 * This implementation don't actually use request dispatcher for the
 	 * forwarding. It runs forwarding logic, and renders its <b>default</b>

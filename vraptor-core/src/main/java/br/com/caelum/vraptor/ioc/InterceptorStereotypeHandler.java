@@ -33,18 +33,14 @@ import br.com.caelum.vraptor.interceptor.InterceptorSequence;
 @ApplicationScoped
 public class InterceptorStereotypeHandler implements StereotypeHandler {
 	private static final Logger logger = LoggerFactory.getLogger(InterceptorStereotypeHandler.class);
-	private InterceptorRegistry registry;
-	private ComponentRegistry componentRegistry;
+	private final InterceptorRegistry registry;
+	private final ComponentRegistry componentRegistry;
 
 	@Inject
 	public InterceptorStereotypeHandler(InterceptorRegistry registry, ComponentRegistry componentRegistry) {
 		this.registry = registry;
 		this.componentRegistry = componentRegistry;
 	}
-
-//	@Deprecated
-//	private InterceptorStereotypeHandler() {
-//	}
 
 	public Class<? extends Annotation> stereotype() {
 		return Intercepts.class;

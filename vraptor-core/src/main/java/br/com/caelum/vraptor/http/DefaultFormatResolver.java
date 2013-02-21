@@ -30,8 +30,8 @@ import br.com.caelum.vraptor.view.AcceptHeaderToFormat;
  */
 public class DefaultFormatResolver implements FormatResolver {
 
-	private HttpServletRequest request;
-	private AcceptHeaderToFormat acceptHeaderToFormat;
+	private final HttpServletRequest request;
+	private final AcceptHeaderToFormat acceptHeaderToFormat;
 
 	@Inject
 	public DefaultFormatResolver(HttpServletRequest request, AcceptHeaderToFormat acceptHeaderToFormat) {
@@ -39,10 +39,6 @@ public class DefaultFormatResolver implements FormatResolver {
 		this.acceptHeaderToFormat = acceptHeaderToFormat;
 	}
 	
-	@Deprecated
-	public DefaultFormatResolver() {
-	}
-
 	public String getAcceptFormat() {
 		String format = request.getParameter("_format");
 		if (format != null) {

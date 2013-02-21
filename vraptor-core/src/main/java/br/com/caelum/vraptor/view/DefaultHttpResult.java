@@ -36,8 +36,8 @@ import com.google.common.io.CharStreams;
  */
 public class DefaultHttpResult implements HttpResult {
 
-	private HttpServletResponse response;
-	private Status status;
+	private final HttpServletResponse response;
+	private final Status status;
 
 	@Inject
 	public DefaultHttpResult(HttpServletResponse response, Status status) {
@@ -45,10 +45,6 @@ public class DefaultHttpResult implements HttpResult {
 		this.status = status;
 	}
 	
-	@Deprecated
-	public DefaultHttpResult() {
-	}
-
 	public HttpResult addDateHeader(String name, long date) {
 		response.addDateHeader(name, date);
 		return this;

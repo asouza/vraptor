@@ -51,8 +51,8 @@ import br.com.caelum.vraptor.validator.ValidationException;
  */
 public class DefaultValidationViewsFactory implements ValidationViewsFactory {
 
-	private Result result;
-	private Proxifier proxifier;
+	private final Result result;
+	private final Proxifier proxifier;
 
 	@Inject
 	public DefaultValidationViewsFactory(Result result, Proxifier proxifier) {
@@ -60,10 +60,6 @@ public class DefaultValidationViewsFactory implements ValidationViewsFactory {
 		this.proxifier = proxifier;
 	}
 	
-	@Deprecated
-	public DefaultValidationViewsFactory() {
-	}
-
 	public <T extends View> T instanceFor(final Class<T> view, final List<Message> errors) {
 		if (view.equals(EmptyResult.class)) {
 			throw new ValidationException(errors);

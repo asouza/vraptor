@@ -28,9 +28,9 @@ import br.com.caelum.vraptor.http.ParameterNameProvider;
  */
 public class ReplicatorOutjector implements Outjector {
 
-    private Result result;
-	private MethodInfo method;
-	private ParameterNameProvider provider;
+    private final Result result;
+	private final MethodInfo method;
+	private final ParameterNameProvider provider;
 
 	@Inject
 	public ReplicatorOutjector(Result result, MethodInfo method, ParameterNameProvider provider) {
@@ -39,10 +39,6 @@ public class ReplicatorOutjector implements Outjector {
 		this.provider = provider;
     }
 	
-	@Deprecated
-	public ReplicatorOutjector() {
-	}
-
     public void outjectRequestMap() {
           String[] names = provider.parameterNamesFor(method.getResourceMethod().getMethod());
           for (int i = 0; i < names.length; i++) {

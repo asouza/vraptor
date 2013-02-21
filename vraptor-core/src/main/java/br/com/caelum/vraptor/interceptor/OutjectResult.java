@@ -43,9 +43,9 @@ public class OutjectResult implements Interceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(OutjectResult.class);
 
-	private Result result;
-	private MethodInfo info;
-	private TypeNameExtractor extractor;
+	private final Result result;
+	private final MethodInfo info;
+	private final TypeNameExtractor extractor;
 
 	@Inject
 	public OutjectResult(Result result, MethodInfo info, TypeNameExtractor extractor) {
@@ -54,10 +54,6 @@ public class OutjectResult implements Interceptor {
 		this.extractor = extractor;
 	}
 	
-	@Deprecated
-	public OutjectResult() {
-	}
-
 	public boolean accepts(ResourceMethod method) {
 		Type returnType = method.getMethod().getGenericReturnType();
 		return !returnType.equals(void.class);

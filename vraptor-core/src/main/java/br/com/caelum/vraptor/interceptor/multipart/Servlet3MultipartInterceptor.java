@@ -85,9 +85,9 @@ public class Servlet3MultipartInterceptor
     public static final String ACCEPT_MULTIPART = "multipart/form-data";
     public static final String CONTENT_DISPOSITION_KEY = "content-disposition";
 
-    private HttpServletRequest request;
-    private MutableRequest parameters;
-    private Validator validator;
+    private final HttpServletRequest request;
+    private final MutableRequest parameters;
+    private final Validator validator;
 
     final Multiset<String> indexes = HashMultiset.create();
 
@@ -98,10 +98,6 @@ public class Servlet3MultipartInterceptor
         this.validator = validator;
     }
     
-    @Deprecated
-    public Servlet3MultipartInterceptor() {
-    }
-
     /**
      * Only accept requests that contains multipart headers.
      */

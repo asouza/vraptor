@@ -27,7 +27,7 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
  */
 public class SessionFlashScope implements FlashScope {
 
-	private HttpSession session;
+	private final HttpSession session;
 
 	private static final String KEY_START = "vraptor_flash_parameters_for_";
 
@@ -36,10 +36,6 @@ public class SessionFlashScope implements FlashScope {
 		this.session = session;
 	}
 	
-	@Deprecated
-	public SessionFlashScope() {
-	}
-
 	public Object[] consumeParameters(ResourceMethod method) {
 		Object[] args = (Object[]) session.getAttribute(nameFor(method));
 		if (args != null) {

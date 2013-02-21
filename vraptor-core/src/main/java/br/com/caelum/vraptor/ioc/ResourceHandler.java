@@ -41,9 +41,9 @@ import br.com.caelum.vraptor.view.LinkToHandler;
 public class ResourceHandler implements StereotypeHandler {
 	private final Logger logger = LoggerFactory
 			.getLogger(ResourceHandler.class);
-	private Router router;
-	private RoutesParser parser;
-	private ServletContext context;
+	private final Router router;
+	private final RoutesParser parser;
+	private final ServletContext context;
 
 	@Inject
 	public ResourceHandler(Router router, RoutesParser parser,
@@ -52,10 +52,6 @@ public class ResourceHandler implements StereotypeHandler {
 		this.parser = parser;
 		this.context = context;
 	}
-	
-//	@Deprecated
-//	public ResourceHandler() {
-//	}
 
 	@PostConstruct
 	public void configureLinkToHandler() {

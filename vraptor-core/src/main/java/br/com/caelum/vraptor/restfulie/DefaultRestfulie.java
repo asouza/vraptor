@@ -38,8 +38,8 @@ import br.com.caelum.vraptor.restfulie.relation.RelationBuilder;
 @ApplicationScoped
 public class DefaultRestfulie implements Restfulie {
 
-	private Proxifier proxifier;
-	private Router router;
+	private final Proxifier proxifier;
+	private final Router router;
 
 	@Inject
 	public DefaultRestfulie(Proxifier proxifier, Router router) {
@@ -47,10 +47,6 @@ public class DefaultRestfulie implements Restfulie {
 		this.router = router;
 	}
 	
-	@Deprecated
-	public DefaultRestfulie() {
-	}
-
 	public RelationBuilder newRelationBuilder() {
 		return new DefaultRelationBuilder(router, proxifier);
 	}

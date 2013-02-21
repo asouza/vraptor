@@ -51,10 +51,10 @@ import com.google.common.collect.ImmutableList;
 @Component
 @RequestScoped
 public class VRaptorInstantiator implements InstantiatorWithErrors, Instantiator<Object> {
-	private Localization localization;
-	private MultiInstantiator multiInstantiator;
+	private final Localization localization;
+	private final MultiInstantiator multiInstantiator;
 	private List<Message> errors;
-	private DependencyProvider provider;
+	private final DependencyProvider provider;
 
 	@Inject
 	public VRaptorInstantiator(Converters converters, DependencyProvider provider, Localization localization, ParameterNamesProvider parameterNameProvider, HttpServletRequest request) {
@@ -74,10 +74,6 @@ public class VRaptorInstantiator implements InstantiatorWithErrors, Instantiator
 		multiInstantiator = new MultiInstantiator(instantiatorList);
 	}
 	
-	@Deprecated
-	public VRaptorInstantiator() {
-	}	
-
 	public boolean isAbleToInstantiate(Target<?> target) {
 		return true;
 	}

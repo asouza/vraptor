@@ -37,7 +37,7 @@ import br.com.caelum.vraptor.view.Results;
  */
 @Intercepts(after=ExecuteMethodInterceptor.class, before={})
 public class ForwardToDefaultViewInterceptor implements Interceptor {
-    private Result result;
+    private final Result result;
 
     private static final Logger logger = LoggerFactory.getLogger(ForwardToDefaultViewInterceptor.class);
 
@@ -46,10 +46,6 @@ public class ForwardToDefaultViewInterceptor implements Interceptor {
         this.result = result;
     }
     
-    @Deprecated
-    public ForwardToDefaultViewInterceptor() {
-    }
-
     public boolean accepts(ResourceMethod method) {
         return true;
     }

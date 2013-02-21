@@ -37,11 +37,11 @@ import static br.com.caelum.vraptor.view.Results.page;
 
 public class DefaultRefererResult implements RefererResult {
 
-	private MutableRequest request;
-	private Result result;
-	private Router router;
-	private ParametersProvider provider;
-	private Localization localization;
+	private final MutableRequest request;
+	private final Result result;
+	private final Router router;
+	private final ParametersProvider provider;
+	private final Localization localization;
 
 	@Inject
 	public DefaultRefererResult(Result result, MutableRequest request, Router router,
@@ -51,10 +51,6 @@ public class DefaultRefererResult implements RefererResult {
 		this.router = router;
 		this.provider = provider;
 		this.localization = localization;
-	}
-
-	@Deprecated
-	public DefaultRefererResult() {
 	}
 
 	public void forward() throws IllegalStateException {

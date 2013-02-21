@@ -52,9 +52,9 @@ public class ExceptionHandlerInterceptor
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerInterceptor.class);
 
-    private ExceptionMapper exceptions;
-    private Result result;
-    private HttpServletRequest request;
+    private final ExceptionMapper exceptions;
+    private final Result result;
+    private final HttpServletRequest request;
 
     @Inject
     public ExceptionHandlerInterceptor(ExceptionMapper exceptions, Result result, HttpServletRequest request) {
@@ -63,10 +63,6 @@ public class ExceptionHandlerInterceptor
         this.request = request;
     }
     
-    @Deprecated
-    public ExceptionHandlerInterceptor() {
-    }
-
     public boolean accepts(ResourceMethod method) {
         return true;
     }

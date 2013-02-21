@@ -47,8 +47,8 @@ public class DefaultExceptionMapper
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultExceptionMapper.class);
 
-    private Map<Class<? extends Exception>, ExceptionRecorder<Result>> exceptions;
-    private Proxifier proxifier;
+    private final Map<Class<? extends Exception>, ExceptionRecorder<Result>> exceptions;
+    private final Proxifier proxifier;
 
     @Inject
     public DefaultExceptionMapper(Proxifier proxifier) {
@@ -56,10 +56,6 @@ public class DefaultExceptionMapper
         this.exceptions = newLinkedHashMap();
     }
     
-    @Deprecated
-    public DefaultExceptionMapper() {
-    }
-
     public Result record(Class<? extends Exception> exception) {
         if (exception == null) {
             throw new NullPointerException("Exception cannot be null.");

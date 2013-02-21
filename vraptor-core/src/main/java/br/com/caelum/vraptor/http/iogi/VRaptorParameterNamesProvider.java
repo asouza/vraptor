@@ -35,15 +35,11 @@ import br.com.caelum.vraptor.ioc.Component;
  */
 @Component
 public class VRaptorParameterNamesProvider implements br.com.caelum.iogi.spi.ParameterNamesProvider {
-	private ParameterNameProvider parameterNameProvider;
+	private final ParameterNameProvider parameterNameProvider;
 
 	@Inject
 	public VRaptorParameterNamesProvider(ParameterNameProvider parameterNameProvider) {
 		this.parameterNameProvider = parameterNameProvider;
-	}
-
-	@Deprecated
-	public VRaptorParameterNamesProvider() {
 	}
 
 	public List<String> lookupParameterNames(AccessibleObject methodOrConstructor) {
