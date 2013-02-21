@@ -146,13 +146,7 @@
 		</dependency>                        					 		    
 		<!-- [/guice] -->
 		
-		<!-- [cdi] -->
-		<dependency>
-			<groupId>br.com.caelum.vraptor</groupId>
-			<artifactId>vraptor-cdi-processor</artifactId>
-			<version>0.2</version>
-			<scope>compile</scope>
-		</dependency>		
+		<!-- [cdi] -->		
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
@@ -173,17 +167,6 @@
 <!-- 	        <scope>test</scope> -->
 	    </dependency>		
 		<dependency>
-		    <groupId>org.jboss.arquillian.junit</groupId>
-		    <artifactId>arquillian-junit-container</artifactId>
-		    <scope>test</scope>
-		</dependency>   
-		<dependency>
-		    <groupId>org.jboss.arquillian.container</groupId>
-		    <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
-		    <version>1.0.0.CR3</version>
-		    <scope>test</scope>
-		</dependency>
-		<dependency>
 		    <groupId>org.jboss.weld</groupId>
 		    <artifactId>weld-core</artifactId>
 		    <version>1.1.9.Final</version>
@@ -194,18 +177,6 @@
 		    <artifactId>slf4j-simple</artifactId>
 		    <version>1.6.4</version>
 		    <scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.shrinkwrap</groupId>
-			<artifactId>shrinkwrap-api</artifactId>
-			<version>1.0.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.shrinkwrap</groupId>
-			<artifactId>shrinkwrap-impl-base</artifactId>
-			<version>1.0.1</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.deltaspike.cdictrl</groupId>
@@ -418,6 +389,15 @@
 					<ajdtVersion>none</ajdtVersion>
 				</configuration>
 			</plugin>
+			<plugin>
+			     <groupId>org.apache.maven.plugins</groupId>
+			     <artifactId>maven-surefire-plugin</artifactId>
+			     <configuration>
+			       <forkMode>pertest</forkMode>
+			       <argLine>-javaagent:${basedir}/cdiagent.jar</argLine>
+			       <workingDirectory>${basedir}/target</workingDirectory>
+			      </configuration>
+			</plugin>			
 		</plugins>
 	</build>
 </project>
