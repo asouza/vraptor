@@ -457,35 +457,6 @@ public abstract class GenericContainerTest {
 		});
 	}	
 	
-	@Test
-	public void shoudRegisterInterceptorsInInterceptorRegistry() {
-		InterceptorRegistry registry = getFromContainer(InterceptorRegistry.class);
-		assertThat(registry.all(), hasOneCopyOf(InterceptorInTheClasspath.class));
-	}	
-	
-	
-	
-	@Test
-	public void shoudCallPredestroyExactlyOneTimeForComponentsScannedFromTheClasspath() {
-		CustomComponentWithLifecycleInTheClasspath component = getFromContainer(CustomComponentWithLifecycleInTheClasspath.class);
-		assertThat(component.getCallsToPreDestroy(), is(equalTo(0)));
-		provider.stop();
-		assertThat(component.getCallsToPreDestroy(), is(equalTo(1)));
-
-		resetProvider();
-	}
-	
-	@Test
-	public void shoudCallPredestroyExactlyOneTimeForComponentFactoriesScannedFromTheClasspath() {
-		ComponentFactoryInTheClasspath componentFactory = getFromContainer(ComponentFactoryInTheClasspath.class);
-		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(0)));
-		provider.stop();
-		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(1)));
-
-		resetProvider();
-	}
-
-
 	/**
 	 * Check if exist {@link Deserializer} registered in VRaptor for determined Content-Types.
 	 */
@@ -510,7 +481,40 @@ public abstract class GenericContainerTest {
 				});
 			}
 		});
+	}	
+	
+	@Test
+	public void shoudRegisterInterceptorsInInterceptorRegistry() {
+		InterceptorRegistry registry = getFromContainer(InterceptorRegistry.class);
+		assertThat(registry.all(), hasOneCopyOf(InterceptorInTheClasspath.class));
+	}	
+		
+	
+	
+	@Test
+	public void shoudCallPredestroyExactlyOneTimeForComponentsScannedFromTheClasspath() {
+		CustomComponentWithLifecycleInTheClasspath component = getFromContainer(CustomComponentWithLifecycleInTheClasspath.class);
+		assertThat(component.getCallsToPreDestroy(), is(equalTo(0)));
+		provider.stop();
+		assertThat(component.getCallsToPreDestroy(), is(equalTo(1)));
+
+		resetProvider();
 	}
+	
+	
+	
+	@Test
+	public void shoudCallPredestroyExactlyOneTimeForComponentFactoriesScannedFromTheClasspath() {
+		ComponentFactoryInTheClasspath componentFactory = getFromContainer(ComponentFactoryInTheClasspath.class);
+		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(0)));
+		provider.stop();
+		assertThat(componentFactory.getCallsToPreDestroy(), is(equalTo(1)));
+
+		resetProvider();
+	}
+
+
+
 
 	protected void resetProvider() {
 		provider = getProvider();
