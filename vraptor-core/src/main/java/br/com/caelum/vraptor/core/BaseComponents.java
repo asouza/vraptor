@@ -74,6 +74,7 @@ import br.com.caelum.vraptor.deserialization.Deserializer;
 import br.com.caelum.vraptor.deserialization.Deserializers;
 import br.com.caelum.vraptor.deserialization.Deserializes;
 import br.com.caelum.vraptor.deserialization.DeserializesHandler;
+import br.com.caelum.vraptor.deserialization.FormDeserializer;
 import br.com.caelum.vraptor.deserialization.JsonDeserializer;
 import br.com.caelum.vraptor.deserialization.XMLDeserializer;
 import br.com.caelum.vraptor.deserialization.XStreamXMLDeserializer;
@@ -110,7 +111,6 @@ import br.com.caelum.vraptor.interceptor.ExecuteMethodInterceptor;
 import br.com.caelum.vraptor.interceptor.FlashInterceptor;
 import br.com.caelum.vraptor.interceptor.ForwardToDefaultViewInterceptor;
 import br.com.caelum.vraptor.interceptor.InstantiateInterceptor;
-import br.com.caelum.vraptor.interceptor.InterceptorListPriorToExecutionExtractor;
 import br.com.caelum.vraptor.interceptor.InterceptorRegistry;
 import br.com.caelum.vraptor.interceptor.OutjectResult;
 import br.com.caelum.vraptor.interceptor.ParametersInstantiatorInterceptor;
@@ -131,7 +131,6 @@ import br.com.caelum.vraptor.ioc.ConverterHandler;
 import br.com.caelum.vraptor.ioc.InterceptorStereotypeHandler;
 import br.com.caelum.vraptor.ioc.ResourceHandler;
 import br.com.caelum.vraptor.ioc.StereotypeHandler;
-import br.com.caelum.vraptor.proxy.CglibProxifier;
 import br.com.caelum.vraptor.proxy.InstanceCreator;
 import br.com.caelum.vraptor.proxy.JavassistProxifier;
 import br.com.caelum.vraptor.proxy.ObjenesisInstanceCreator;
@@ -148,6 +147,7 @@ import br.com.caelum.vraptor.restfulie.headers.RestDefaults;
 import br.com.caelum.vraptor.serialization.DefaultRepresentationResult;
 import br.com.caelum.vraptor.serialization.HTMLSerialization;
 import br.com.caelum.vraptor.serialization.HibernateProxyInitializer;
+import br.com.caelum.vraptor.serialization.I18nMessageSerialization;
 import br.com.caelum.vraptor.serialization.JSONPSerialization;
 import br.com.caelum.vraptor.serialization.JSONSerialization;
 import br.com.caelum.vraptor.serialization.NullProxyInitializer;
@@ -212,7 +212,6 @@ public class BaseComponents {
     		Converters.class, 				DefaultConverters.class,
             InterceptorRegistry.class, 		TopologicalSortedInterceptorRegistry.class,
             InterceptorHandlerFactory.class,DefaultInterceptorHandlerFactory.class,
-            InterceptorListPriorToExecutionExtractor.class, InterceptorListPriorToExecutionExtractor.class,
             MultipartConfig.class, 			DefaultMultipartConfig.class,
             UrlToResourceTranslator.class, 	DefaultResourceTranslator.class,
             Router.class, 					DefaultRouter.class,
@@ -221,7 +220,7 @@ public class BaseComponents {
             MethodNotAllowedHandler.class,	DefaultMethodNotAllowedHandler.class,
             RoutesConfiguration.class, 		NoRoutesConfiguration.class,
             Deserializers.class,			DefaultDeserializers.class,
-            Proxifier.class, 				getProxifier(),
+            Proxifier.class, 				JavassistProxifier.class,
             InstanceCreator.class,          getInstanceCreator(),
             ParameterNameProvider.class, 	ParanamerNameProvider.class,
             TypeFinder.class, 				DefaultTypeFinder.class,
@@ -264,6 +263,7 @@ public class BaseComponents {
             InstantiateInterceptor.class, 					InstantiateInterceptor.class,
             DeserializingInterceptor.class, 				DeserializingInterceptor.class,
             JsonDeserializer.class,							JsonDeserializer.class,
+            FormDeserializer.class,							FormDeserializer.class,
             Localization.class, 							JstlLocalization.class,
             OutjectResult.class, 							OutjectResult.class,
             ParametersInstantiatorInterceptor.class, 		ParametersInstantiatorInterceptor.class,
@@ -274,6 +274,7 @@ public class BaseComponents {
             JSONSerialization.class,						XStreamJSONSerialization.class,
             JSONPSerialization.class,						XStreamJSONPSerialization.class,
             HTMLSerialization.class,						HTMLSerialization.class,
+            I18nMessageSerialization.class,					I18nMessageSerialization.class,
             RepresentationResult.class,						DefaultRepresentationResult.class,
             FormatResolver.class,							DefaultFormatResolver.class,
             Configuration.class,							ApplicationConfiguration.class,
@@ -348,14 +349,6 @@ public class BaseComponents {
         }
 
         return ReflectionInstanceCreator.class;
-    }
-
-    private static Class<? extends Proxifier> getProxifier() {
-        if (isClassPresent("net.sf.cglib.proxy.Factory")) {
-            return CglibProxifier.class;
-        }
-
-        return JavassistProxifier.class;
     }
 
 	public static Map<Class<?>, Class<?>> getCachedComponents() {

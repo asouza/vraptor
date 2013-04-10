@@ -66,9 +66,13 @@ public class DefaultValidator extends AbstractValidator {
         addAll(validations.getErrors(new LocalizationSupplier(localization)));
     }
 
-    public void validate(Object object) {
-        addAll(beanValidator.validate(object));
+    public void validate(Object object, Class<?>... groups) {
+        addAll(beanValidator.validate(object, groups));
     }
+    
+    public void validateProperties(Object object, String... properties) {
+    	addAll(beanValidator.validateProperties(object, properties));
+	}
 
     public <T extends View> T onErrorUse(Class<T> view) {
     	if (!hasErrors()) {
@@ -99,6 +103,7 @@ public class DefaultValidator extends AbstractValidator {
 	public List<Message> getErrors() {
 		return unmodifiableList(errors);
 	}
+
 }
 
 class LocalizationSupplier implements Supplier<ResourceBundle> {

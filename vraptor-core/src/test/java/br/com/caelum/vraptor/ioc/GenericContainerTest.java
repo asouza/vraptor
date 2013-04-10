@@ -47,6 +47,8 @@ import br.com.caelum.vraptor.core.Converters;
 import br.com.caelum.vraptor.core.Execution;
 import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.core.RequestInfo;
+import br.com.caelum.vraptor.deserialization.Deserializer;
+import br.com.caelum.vraptor.deserialization.Deserializers;
 import br.com.caelum.vraptor.http.route.Route;
 import br.com.caelum.vraptor.http.route.Router;
 import br.com.caelum.vraptor.interceptor.InterceptorRegistry;
@@ -165,7 +167,7 @@ public abstract class GenericContainerTest {
 		provider = getProvider();
 		start(provider);
 	}
-	
+
 	@Test
 	public void setsAnAttributeOnRequestWithTheObjectTypeName() throws Exception {
 		executeInsideRequest(new WhatToDo<Void>() {
@@ -182,14 +184,14 @@ public abstract class GenericContainerTest {
 			}
 		});
 	}
-	
+
 	@Test
 	public void setsAnAttributeOnSessionWithTheObjectTypeName() throws Exception {
 		registerAndGetFromContainer(MySessionComponent.class, MySessionComponent.class);
 		executeInsideRequest(new WhatToDo<Void>() {
 			public Void execute(final RequestInfo request, int counter) {
 				return provider.provideForRequest(request, new Execution<Void>() {
-					
+
 					public Void insideRequest(Container container) {
 						HttpSession session = container.instanceFor(HttpSession.class);
 						MySessionComponent component = container.instanceFor(MySessionComponent.class);
@@ -208,12 +210,12 @@ public abstract class GenericContainerTest {
 	public static class MyRequestComponent {
 
 	}
-	
+
 	@Test
 	public void processesCorrectlyRequestBasedComponents() {
 		checkAvailabilityFor(false, MyRequestComponent.class, MyRequestComponent.class);
 	}
-	
+
 	@Component
 	@PrototypeScoped
 	public static class MyPrototypeComponent {
@@ -270,12 +272,12 @@ public abstract class GenericContainerTest {
 		when(context.getRealPath("/WEB-INF/classes")).thenReturn(getClassDir());
 
 		when(context.getClassLoader()).thenReturn(
-				new URLClassLoader(new URL[] {ScannotationComponentScannerTest.class.getResource("/test-fixture.jar")}, 
+				new URLClassLoader(new URL[] {ScannotationComponentScannerTest.class.getResource("/test-fixture.jar")},
 						currentThread().getContextClassLoader()));
 
         //allowing(context).getInitParameter(ENCODING);
         //allowing(context).setAttribute(with(any(String.class)), with(any(Object.class)));
-            
+
         when(context.getInitParameter(SCANNING_PARAM)).thenReturn("enabled");
 
 		configureExpectations();
@@ -483,6 +485,32 @@ public abstract class GenericContainerTest {
 		resetProvider();
 	}
 
+
+	/**
+	 * Check if exist {@link Deserializer} registered in VRaptor for determined Content-Types.
+	 */
+	@Test
+	public void shouldReturnAllDefaultDeserializers() {
+		executeInsideRequest(new WhatToDo<Void>(){
+
+			public Void execute(RequestInfo request, int counter) {
+				return provider.provideForRequest(request, new Execution<Void>() {
+
+					public Void insideRequest(Container container) {
+						Deserializers deserializers = container.instanceFor(Deserializers.class);
+						assertNotNull(deserializers.deserializerFor("application/json", container));
+						assertNotNull(deserializers.deserializerFor("json", container));
+						assertNotNull(deserializers.deserializerFor("application/xml", container));
+						assertNotNull(deserializers.deserializerFor("xml", container));
+						assertNotNull(deserializers.deserializerFor("text/xml", container));
+						assertNotNull(deserializers.deserializerFor("application/x-www-form-urlencoded", container));
+						return null;
+					}
+
+				});
+			}
+		});
+	}
 
 	protected void resetProvider() {
 		provider = getProvider();
