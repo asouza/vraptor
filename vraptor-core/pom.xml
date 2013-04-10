@@ -405,7 +405,6 @@
 					</execution>
 				</executions>
 			</plugin>
->>>>>>> 46c61c89ca1436112be06dd7d0a7afa33c8a9c65
 		</plugins>
 	</build>
 </project>
