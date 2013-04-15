@@ -29,7 +29,6 @@ import static org.mockito.Mockito.when;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.annotation.Resource;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -48,6 +47,7 @@ import br.com.caelum.vraptor.Options;
 import br.com.caelum.vraptor.Patch;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.core.Converters;
 import br.com.caelum.vraptor.http.ParameterNameProvider;
 import br.com.caelum.vraptor.proxy.JavassistProxifier;

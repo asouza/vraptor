@@ -52,6 +52,7 @@ import br.com.caelum.vraptor.deserialization.Deserializers;
 import br.com.caelum.vraptor.http.route.Route;
 import br.com.caelum.vraptor.http.route.Router;
 import br.com.caelum.vraptor.interceptor.InterceptorRegistry;
+import br.com.caelum.vraptor.ioc.cdi.Code;
 import br.com.caelum.vraptor.ioc.fixture.ComponentFactoryInTheClasspath;
 import br.com.caelum.vraptor.ioc.fixture.ComponentFactoryInTheClasspath.Provided;
 import br.com.caelum.vraptor.ioc.fixture.ConverterInTheClasspath;
@@ -347,11 +348,29 @@ public abstract class GenericContainerTest {
 			}
 		});
 	}
+	
+	protected <T> T getFromContainerAndExecuteSomeCode(final Class<T> componentToBeRetrieved,final Code<T> code) {
+		return executeInsideRequest(new WhatToDo<T>() {
+			public T execute(RequestInfo request, final int counter) {
+				T bean = getFromContainerInCurrentThread(componentToBeRetrieved, request,code);				
+				return bean;
+			}
+		});
+	}
 
 	protected <T> T getFromContainerInCurrentThread(final Class<T> componentToBeRetrieved, RequestInfo request) {
 		return provider.provideForRequest(request, new Execution<T>() {
 			public T insideRequest(Container firstContainer) {
 				return instanceFor(componentToBeRetrieved,firstContainer);
+			}
+		});
+	}
+	protected <T> T getFromContainerInCurrentThread(final Class<T> componentToBeRetrieved, RequestInfo request,final Code<T> code) {
+		return provider.provideForRequest(request, new Execution<T>() {
+			public T insideRequest(Container firstContainer) {
+				T bean = instanceFor(componentToBeRetrieved,firstContainer);
+				code.execute(bean);
+				return bean;
 			}
 		});
 	}
