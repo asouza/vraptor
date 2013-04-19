@@ -70,6 +70,7 @@ public class DefaultPageResultTest {
             }
         };
 		view = new DefaultPageResult(request, response, requestInfo, fixedResolver, proxifier);
+		when(request.getOriginalRequest()).thenReturn(request);
     }
 
     public static class AnyResource {
