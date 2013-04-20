@@ -2,7 +2,6 @@ out
 .classpath
 .project
 .settings
-.scala_dependencies
 .metadata
 !vraptor-blank-project/.classpath
 !vraptor-blank-project/.settings/
@@ -10,8 +9,6 @@ out
 !vraptor-mydvds/.classpath
 !vraptor-mydvds/.settings/
 !vraptor-mydvds/.project
-!vraptor-site/.project
-!vraptor-site/.settings
 *.zip
 *.ipr
 *.iws
@@ -21,25 +18,23 @@ out
 target
 classes
 build
+<<<<<<< HEAD
 !vraptor-core/lib/build
 vraptor-core/cdi_transformer.jar
+=======
+>>>>>>> e593bb71542285aaebc3e94777461f15cebf9827
 cobertura.ser
 bin
 .DS_Store
-xsite-1.0
 classes
-vraptor-example-compatibility/src/main/webapp/WEB-INF/lib/*.jar
 vraptor-blank-project/WebContent/WEB-INF/lib/*.jar
 vraptor-blank-project-gae/war/WEB-INF/lib/*.jar
-vraptor-blank-project-scala/WebContent/WEB-INF/lib/
-vraptor-plugin-flex/lib/*.jar
 vraptor-mydvds/WebContent/WEB-INF/lib/*.jar
-vraptor-site/todo.log
 vraptor-mydvds/mydvds.war
 vraptor-mydvds/mydvdsDB.*
 *~
-
 vraptor-plugin-gae/build.tmp/
+<<<<<<< HEAD
 vraptor-blank-project-scala/lib
 vraptor-blank-project-scala/lib_managed
 vraptor-blank-project-scala/project/boot/
@@ -47,3 +42,5 @@ vraptor-blank-project-scala/project/build/target/
 vraptor-mydvds/.classpath
 vraptor-mydvds/.project
 vraptor-mydvds/.settings/
+=======
+>>>>>>> e593bb71542285aaebc3e94777461f15cebf9827

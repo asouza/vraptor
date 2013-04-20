@@ -15,8 +15,10 @@
  */
 package br.com.caelum.vraptor.validator;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Collections.emptyList;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -34,7 +36,7 @@ import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 
 /**
- * Implements the {@link BeanValidator} using Bean Validation especification (JSR303). This implementation
+ * Implements the {@link BeanValidator} using Bean Validation (JSR303). This implementation
  * will be enable by vraptor when any implementation of Bean Validation is available into classpath.
  * 
  * @author Otávio Scherer Garcia
@@ -64,7 +66,7 @@ public class DefaultBeanValidator
 
         if (bean == null) {
             logger.warn("skiping validation, input bean is null.");
-            return Collections.emptyList();
+            return emptyList();
         }
 
         final Set<ConstraintViolation<Object>> violations = validator.validate(bean, groups);
@@ -76,10 +78,10 @@ public class DefaultBeanValidator
     public List<Message> validateProperties(Object bean, String... properties) {
     	if(bean == null) {
     		logger.warn("skiping validation, input bean is null.");
-            return Collections.emptyList();
+            return emptyList();
     	}
     	
-    	if(!hasProperties(properties)) throw new IllegalArgumentException("No properties were defined to be validated");
+    	checkArgument(hasProperties(properties), "No properties were defined to be validated");
     	
     	List<Message> messages = new ArrayList<Message>();
     	
