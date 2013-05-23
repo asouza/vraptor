@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
-import br.com.caelum.vraptor.ioc.cdi.VraptorPreference;
 
 /**
  * Bring up Bean Validation factory. This class builds the {@link Validator} once when application
@@ -60,7 +59,6 @@ public class ValidatorCreator implements ComponentFactory<Validator> {
     }
 
     @Default
-    @VraptorPreference
 	public Validator getInstance() {
 		return validator;
 	}

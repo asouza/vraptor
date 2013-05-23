@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
-import br.com.caelum.vraptor.ioc.cdi.VraptorPreference;
 
 /**
  * Factory for JSR303 ValidatorFactory
@@ -56,7 +55,6 @@ public class ValidatorFactoryCreator implements ComponentFactory<ValidatorFactor
 	}
 
 	@Default
-	@VraptorPreference
 	public ValidatorFactory getInstance() {
 		if (factory == null) { //pico don't call PostConstruct
 			buildFactory();

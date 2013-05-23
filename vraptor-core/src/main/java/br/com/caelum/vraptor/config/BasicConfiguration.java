@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.vraptor.ioc.ContainerProvider;
-import br.com.caelum.vraptor.ioc.cdi.CDIProvider;
 import br.com.caelum.vraptor.ioc.guice.GuiceProvider;
 import br.com.caelum.vraptor.ioc.pico.PicoProvider;
 import br.com.caelum.vraptor.ioc.spring.MissingConfigurationException;
@@ -100,11 +99,7 @@ public class BasicConfiguration {
 
 		if (classExists("org.picocontainer.PicoContainer")) {
 			return PicoProvider.class;
-		}
-		
-		if (classExists("javax.enterprise.inject.spi.BeanManager")) {
-			return CDIProvider.class;
-		}
+		}		
 		
 		throw new IllegalArgumentException("You don't have any DI container jars on your classpath. " +
 				"You can find them on vraptor-3.x.x.zip, so you must put one of the " +

@@ -1,4 +1,0 @@
-br.com.caelum.vraptor.ioc.cdi.extensions.RegisterComponentsExtension
-br.com.caelum.vraptor.ioc.cdi.extensions.ComponentExtension
-br.com.caelum.vraptor.ioc.cdi.extensions.ComponentFactoryExtension
-br.com.caelum.vraptor.ioc.cdi.extensions.AddInjectToConstructorExtension
