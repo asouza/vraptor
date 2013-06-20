@@ -2,6 +2,7 @@ package br.com.caelum.vraptor.deserialization.gson;
 
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -174,6 +175,21 @@ public class GsonDeserializerTest {
 		assertThat(dog.name, is("Brutus"));
 		assertThat(dog.age, is(7));
 	}
+	
+	@Test
+	public void shouldBeAbleToDeserializeADogWhenMethodHasMoreThanOneArgumentAndHasNotRoot() throws Exception {
+		InputStream stream = new ByteArrayInputStream("{'name':'Brutus','age':7}".getBytes());
+
+		when(provider.parameterNamesFor(jump.getMethod())).thenReturn(new String[] { "dog", "times" });
+
+		Object[] deserialized = deserializer.deserialize(stream, jump);
+
+		assertThat(deserialized.length, is(2));
+		assertThat(deserialized[0], is(instanceOf(Dog.class)));
+		Dog dog = (Dog) deserialized[0];
+		assertThat(dog.name, is("Brutus"));
+		assertThat(dog.age, is(7));
+	}
 
 	@Test
 	public void shouldBeAbleToDeserializeADogWhenMethodHasMoreThanOneArgumentAndTheXmlIsTheLastOne() throws Exception {
@@ -255,5 +271,16 @@ public class GsonDeserializerTest {
 		Dog dog = (Dog) deserialized[0];
 
 		assertThat(dog.name, is("ç"));
+	}
+	
+	@Test
+	public void shouldByPassDeserializationWhenHasNoContent() {
+		InputStream stream = new ByteArrayInputStream("".getBytes());
+		when(provider.parameterNamesFor(bark.getMethod())).thenReturn(new String[] { "pet" });
+		
+		Object[] deserialized = deserializer.deserialize(stream, bark);
+		
+		assertThat(deserialized.length, is(1));
+		assertThat(deserialized[0], is(nullValue()));
 	}
 }

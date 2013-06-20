@@ -62,6 +62,7 @@ import br.com.caelum.vraptor.converter.PrimitiveLongConverter;
 import br.com.caelum.vraptor.converter.PrimitiveShortConverter;
 import br.com.caelum.vraptor.converter.ShortConverter;
 import br.com.caelum.vraptor.converter.StringConverter;
+import br.com.caelum.vraptor.converter.UploadedFileConverter;
 import br.com.caelum.vraptor.converter.jodatime.DateMidnightConverter;
 import br.com.caelum.vraptor.converter.jodatime.DateTimeConverter;
 import br.com.caelum.vraptor.converter.jodatime.LocalDateConverter;
@@ -304,7 +305,8 @@ public class BaseComponents {
 			PrimitiveLongConverter.class,
 			PrimitiveShortConverter.class,
 			ShortConverter.class,
-			StringConverter.class));
+			StringConverter.class,
+			UploadedFileConverter.class));
 
 
     @SuppressWarnings("unchecked")

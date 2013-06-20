@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +21,7 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.view.ResultException;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,7 +48,7 @@ public class GsonDeserialization implements Deserializer {
 
 	private final HttpServletRequest request;
 
-	public GsonDeserialization(ParameterNameProvider paramNameProvider, Collection<JsonDeserializer> adapters, HttpServletRequest request) {
+	public GsonDeserialization(ParameterNameProvider paramNameProvider, List<JsonDeserializer> adapters, HttpServletRequest request) {
 		this.paramNameProvider = paramNameProvider;
 		this.adapters = adapters;
 		this.request = request;
@@ -67,6 +69,12 @@ public class GsonDeserialization implements Deserializer {
 
 		try {
 			String content = getContentOfStream(inputStream);
+			
+			if(Strings.isNullOrEmpty(content)) {
+				logger.debug("json with no content");
+				return params;
+			}
+			
 			logger.debug("json retrieved: {}", content);
 
 			JsonParser parser = new JsonParser();
@@ -75,9 +83,10 @@ public class GsonDeserialization implements Deserializer {
 			for (int i = 0; i < types.length; i++) {
 				String name = parameterNames[i];
 				JsonElement node = root.get(name);
-				if (isWithoutRoot(types, node)) {
+				if (isWithoutRoot(parameterNames, root)) {
 					params[i] = gson.fromJson(root, types[i]);
 					logger.info("json without root deserialized");
+					break;
 				}
 				else if(node != null){
 					params[i] = gson.fromJson(node, types[i]);
@@ -87,12 +96,15 @@ public class GsonDeserialization implements Deserializer {
 		} catch (Exception e) {
 			throw new ResultException("Unable to deserialize data", e);
 		}
-		
+
 		return params;
 	}
 
-	private boolean isWithoutRoot(Class<?>[] types, JsonElement node) {
-		return node == null && types.length == 1;
+	private boolean isWithoutRoot(String[] parameterNames, JsonObject root) {
+		for(String parameterName : parameterNames) {
+			if(root.get(parameterName) != null) return false;
+		}
+		return true;
 	}
 
 	protected Gson getGson() {
