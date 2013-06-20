@@ -16,6 +16,7 @@
 package br.com.caelum.vraptor.validator;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Priority;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
 import javax.validation.Validation;
@@ -39,6 +40,7 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
 @Component
 @ApplicationScoped
 @Alternative
+@Priority(1000)
 public class ValidatorFactoryCreator implements ComponentFactory<ValidatorFactory> {
 
 	private static final Logger logger = LoggerFactory.getLogger(ValidatorFactoryCreator.class);

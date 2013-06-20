@@ -23,6 +23,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 
@@ -41,6 +43,8 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
  * @since 3.5.1-SNAPSHOT
  */
 @ApplicationScoped
+@Priority(1000)
+@Alternative
 public class MethodValidatorFactoryCreator
     implements ComponentFactory<ValidatorFactory> {
     
