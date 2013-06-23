@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.http.MutableRequest;
+import br.com.caelum.vraptor.http.MutableResponse;
 import br.com.caelum.vraptor.http.route.Router;
 import br.com.caelum.vraptor.interceptor.TypeNameExtractor;
 import br.com.caelum.vraptor.ioc.Container;
@@ -56,7 +57,7 @@ public class DefaultLogicResult implements LogicResult {
 	private final Proxifier proxifier;
 	private final Router router;
 	private final MutableRequest request;
-	private final HttpServletResponse response;
+	private final MutableResponse response;
 	private final Container container;
 	private final PathResolver resolver;
 	private final TypeNameExtractor extractor;
@@ -65,7 +66,7 @@ public class DefaultLogicResult implements LogicResult {
 	private final MethodInfo methodInfo;
 
 	@Inject
-	public DefaultLogicResult(Proxifier proxifier, Router router, MutableRequest request, HttpServletResponse response,
+	public DefaultLogicResult(Proxifier proxifier, Router router, MutableRequest request, MutableResponse response,
 			Container container, PathResolver resolver, TypeNameExtractor extractor, FlashScope flash, MethodInfo methodInfo) {
 		this.proxifier = proxifier;
 		this.response = response;
@@ -100,7 +101,7 @@ public class DefaultLogicResult implements LogicResult {
 					if (!response.isCommitted()) {
 						String path = resolver.pathFor(DefaultResourceMethod.instanceFor(type, method));
 						logger.debug("Forwarding to {}", path);
-						request.getRequestDispatcher(path).forward(request.getOriginalRequest(), response);
+						request.getRequestDispatcher(path).forward(request.getOriginalRequest(), response.getOriginalResponse());
 					}
 					return null;
 				} catch (InvocationTargetException e) {
