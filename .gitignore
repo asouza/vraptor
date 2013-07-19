@@ -18,11 +18,6 @@ out
 target
 classes
 build
-<<<<<<< HEAD
-!vraptor-core/lib/build
-vraptor-core/cdi_transformer.jar
-=======
->>>>>>> e593bb71542285aaebc3e94777461f15cebf9827
 cobertura.ser
 bin
 .DS_Store
@@ -34,13 +29,3 @@ vraptor-mydvds/mydvds.war
 vraptor-mydvds/mydvdsDB.*
 *~
 vraptor-plugin-gae/build.tmp/
-<<<<<<< HEAD
-vraptor-blank-project-scala/lib
-vraptor-blank-project-scala/lib_managed
-vraptor-blank-project-scala/project/boot/
-vraptor-blank-project-scala/project/build/target/
-vraptor-mydvds/.classpath
-vraptor-mydvds/.project
-vraptor-mydvds/.settings/
-=======
->>>>>>> e593bb71542285aaebc3e94777461f15cebf9827
