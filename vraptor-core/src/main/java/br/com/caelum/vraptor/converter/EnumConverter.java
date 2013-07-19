@@ -17,16 +17,12 @@
 
 package br.com.caelum.vraptor.converter;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-import javax.enterprise.context.Dependent;
-
 import br.com.caelum.vraptor.Convert;
 import br.com.caelum.vraptor.Converter;
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 /**
  * Accepts either the ordinal value or name. Null and empty strings are treated
