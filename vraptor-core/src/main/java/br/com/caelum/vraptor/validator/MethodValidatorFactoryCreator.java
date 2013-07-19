@@ -37,43 +37,47 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
 
 /**
  * Bring up Method Validation factory. This class builds the {@link ValidatorFactory} factory once when
- * application starts.
+ * application starts. This class only works with Bean Validation 1.1 (for 1.0 use
+ * {@link ValidatorFactoryCreator} instead. WARN: Method validation is beta, and is subject to change.
  * 
  * @author Otávio Scherer Garcia
- * @since 3.5.1-SNAPSHOT
+ * @since 3.5.2-SNAPSHOT
  */
 @ApplicationScoped
 @Priority(1000)
 @Alternative
 public class MethodValidatorFactoryCreator
     implements ComponentFactory<ValidatorFactory> {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(MethodValidatorFactoryCreator.class);
     private static final List<Method> OBJECT_METHODS = asList(Object.class.getDeclaredMethods());
 
     private ValidatorFactory instance;
     private final ParameterNameProvider nameProvider;
-    
-    public MethodValidatorFactoryCreator(ParameterNameProvider nameProvider) {
+    private final DIConstraintValidatorFactory constraintValidatorFactory;
+
+    public MethodValidatorFactoryCreator(ParameterNameProvider nameProvider,
+            DIConstraintValidatorFactory constraintValidatorFactory) {
         this.nameProvider = nameProvider;
+        this.constraintValidatorFactory = constraintValidatorFactory;
     }
-    
+
     @PostConstruct
     public void buildFactory() {
         instance = Validation.byDefaultProvider().configure()
-            .parameterNameProvider(new CustomParameterNameProvider(nameProvider))
-            .buildValidatorFactory();
-        
-        logger.debug("Initializing Method Validator");
+                .parameterNameProvider(new CustomParameterNameProvider(nameProvider))
+                .constraintValidatorFactory(constraintValidatorFactory).buildValidatorFactory();
+
+        logger.debug("Initializing Bean Validation (1.1 supported)");
     }
-    
+
     @PreDestroy
     public void close() {
         instance.close();
     }
 
     public ValidatorFactory getInstance() {
-        if (instance == null) { //pico don't call PostConstruct
+        if (instance == null) { // pico don't call PostConstruct
             buildFactory();
         }
         return instance;
@@ -81,40 +85,40 @@ public class MethodValidatorFactoryCreator
 
     /**
      * Allow vraptor to use paranamer to discovery method parameter names.
+     * 
      * @author Otávio Scherer Garcia
-     * @since 3.5
+     * @since 3.5.2-SNAPSHOT
      */
     class CustomParameterNameProvider
         implements javax.validation.ParameterNameProvider {
-    
+
         private final ParameterNameProvider nameProvider;
-        
+
         public CustomParameterNameProvider(ParameterNameProvider nameProvider) {
             this.nameProvider = nameProvider;
         }
 
         /**
-         * Returns an empty list of parameter names, since we don't validate 
-         * constructors.
+         * Returns an empty list of parameter names, since we don't validate constructors.
          */
         public List<String> getParameterNames(Constructor<?> constructor) {
             return emptyParameters(constructor.getParameterTypes().length);
         }
 
         /**
-         * Returns the parameter names for the method, skiping if method is inherited 
-         * from object.
+         * Returns the parameter names for the method, skiping if method is inherited from object.
          */
         public List<String> getParameterNames(Method method) {
             if (OBJECT_METHODS.contains(method)) {
                 return emptyParameters(method.getParameterTypes().length);
             }
-            
+
             return asList(nameProvider.parameterNamesFor(method));
         }
-        
+
         private List<String> emptyParameters(int length) {
             return asList(new String[length]);
         }
     }
+
 }

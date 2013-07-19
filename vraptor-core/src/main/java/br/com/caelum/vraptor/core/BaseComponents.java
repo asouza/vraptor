@@ -161,6 +161,7 @@ import br.com.caelum.vraptor.serialization.xstream.XStreamJSONPSerialization;
 import br.com.caelum.vraptor.serialization.xstream.XStreamJSONSerialization;
 import br.com.caelum.vraptor.serialization.xstream.XStreamXMLSerialization;
 import br.com.caelum.vraptor.validator.BeanValidator;
+import br.com.caelum.vraptor.validator.DIConstraintValidatorFactory;
 import br.com.caelum.vraptor.validator.DefaultBeanValidator;
 import br.com.caelum.vraptor.validator.DefaultValidator;
 import br.com.caelum.vraptor.validator.MessageConverter;
@@ -326,8 +327,11 @@ public class BaseComponents {
     	Intercepts.class
     };
 
-    private static final Set<Class<? extends Deserializer>> DESERIALIZERS = Collections.<Class<? extends Deserializer>>singleton(XMLDeserializer.class);
-    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private static final Set<Class<? extends Deserializer>> DESERIALIZERS = new HashSet(Arrays.asList(
+    		XMLDeserializer.class, 
+    		JsonDeserializer.class,
+    		FormDeserializer.class));
 
     public static Set<Class<? extends Deserializer>> getDeserializers() {
 		return DESERIALIZERS;
@@ -363,6 +367,7 @@ public class BaseComponents {
         if (isClassPresent("javax.validation.executable.ExecutableValidator")) {
             APPLICATION_COMPONENTS.put(ValidatorCreator.class, ValidatorCreator.class);
             APPLICATION_COMPONENTS.put(MethodValidatorFactoryCreator.class, MethodValidatorFactoryCreator.class);
+            APPLICATION_COMPONENTS.put(DIConstraintValidatorFactory.class, DIConstraintValidatorFactory.class);
             APPLICATION_COMPONENTS.put(MessageInterpolatorFactory.class, MessageInterpolatorFactory.class);
         } else if (isClassPresent("javax.validation.Validation")) {
             APPLICATION_COMPONENTS.put(ValidatorCreator.class, ValidatorCreator.class);
