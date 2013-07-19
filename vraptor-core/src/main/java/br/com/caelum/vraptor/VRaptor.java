@@ -19,8 +19,6 @@ package br.com.caelum.vraptor;
 
 import java.io.IOException;
 
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
